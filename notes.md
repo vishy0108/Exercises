@@ -13,6 +13,14 @@
 - Fulfilling an order via Producer, Shipper, Retailer at various stages
 - An auditor to monitor the transparency
 
-# Questions
-- Read this for data types
-- Creating `enum` in go
+# Questions/General Info
+- Read [this](https://github.com/hyperledger/fabric-contract-api-go/blob/master/tutorials/getting-started.md#writing-contract-functions) for data types
+- Creating `enum` in go contract
+- `TransactionContext` has the following methods:
+    1. GetID()
+    2. GetMSPID()
+    3. GetAttributeValue(string)
+    4. GetX509Certificate()
+
+    Reference [here](https://github.com/hyperledger/fabric-contract-api-go/blob/master/contractapi/transaction_context_test.go)
+- In Solidity, we have `Global State Variables` defined. Whenever a transaction executed, changes made to these are automatically stored to the ledger. However, in case of `Hyperledger Fabric`, this is approached differently. All those variables whose state needs to be maintained, should manually be updated within the smart contract.
