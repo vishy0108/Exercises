@@ -1,5 +1,15 @@
 # Introduction
-In supply chain, confidentiality is mandatory because some consumers might be given discounted rates compared to others. In this scenario, other consumers should not be able to access their competitors’ rates. Given that Hyperledger Fabric is optimized for a broad range of industry use cases, including supply chain, the open source framework provides a way to implement confidentiality at the chaincode layer using attribute-based access control. This example shows you how to implement such functionality, by registering each user with a specific attribute, called usertype. The usertype can be either an admin, a regulator, a producer, a shipper, a retailer, or a customer, and it is generated when a specific user registers in the application. When that user logs in successfully and connects to an instance of the Hyperledger Fabric network, their usertype gives them access to certain transactions that have been submitted on the network. For example, the regulator (such as the FDA) is able to view all transactions on the network in order to reliably audit the network, but the retailer is only able to view the transactions that they are a part of. Once you understand how to apply these access control rules, you can apply them to any use case and start building innovative and secure blockchain networks.
+In supply chain, confidentiality is mandatory because some consumers might be given discounted rates compared to others. In this scenario, other consumers should not be able to access their competitors’ rates.
+
+This application demonstrates confidentiality, by registering each user with a specific attribute, called usertype. This takes advantage of the attribute based access control(`ABAC`). These attributes are checked inside `Go` smart contract before further operations.
+The usertype can be either
+- an admin
+- a regulator
+- a producer
+- a shipper
+- a retailer, or
+- a customer.
+It is generated when a specific user registers in the application. When that user logs in successfully and connects to an instance of the Hyperledger Fabric network, their usertype gives them access to certain transactions that have been submitted on the network. For example, the regulator (such as the FDA) is able to view all transactions on the network in order to reliably audit the network, but the retailer is only able to view the transactions that they are a part of.
 
 # Client application
-Angular app for client side is coped from IBM repo
+Angular app for client side is from IBM repo
