@@ -8,7 +8,8 @@ The usertype can be either
 - a producer
 - a shipper
 - a retailer, or
-- a customer.
+- a customer
+
 It is generated when a specific user registers in the application. When that user logs in successfully and connects to an instance of the Hyperledger Fabric network, their usertype gives them access to certain transactions that have been submitted on the network. For example, the regulator (such as the FDA) is able to view all transactions on the network in order to reliably audit the network, but the retailer is only able to view the transactions that they are a part of.
 
 # Client application
