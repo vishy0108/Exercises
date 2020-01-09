@@ -11,8 +11,8 @@ import {MatTableDataSource} from '@angular/material/table';
   providers: []
 })
 
-export class UserManagementComponent implements OnInit{
-  newUser: Object;
+export class UserManagementComponent implements OnInit {
+  newUser: object;
   types: any[];
 
   newUserForm: FormGroup;
@@ -22,10 +22,10 @@ export class UserManagementComponent implements OnInit{
   allUsers: MatTableDataSource<EditUser[]>;
   columnsToDisplay = ['id', 'usertype', 'enrolled'];
 
-  constructor(private api: ApiService, private auth: AuthService, private formBuilder: FormBuilder){}
+  constructor(private api: ApiService, private auth: AuthService, private formBuilder: FormBuilder) {}
 
-  ngOnInit(){
-    this.types = ["retailer", "producer", "shipper", "customer", "regulator"];
+  ngOnInit() {
+    this.types = ['retailer', 'producer', 'shipper', 'customer', 'regulator'];
 
     this.newUserForm = this.formBuilder.group({
       id: ['', Validators.required],
@@ -38,24 +38,24 @@ export class UserManagementComponent implements OnInit{
     this.loadUserList(0);
   }
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
 
     if (this.newUserForm.invalid) {
       return;
     }
 
-    if (this.newUserForm.controls.password.value != this.newUserForm.controls.confirm_password.value){
-      console.log("the passwords don't match");
+    if (this.newUserForm.controls.password.value !== this.newUserForm.controls.confirm_password.value) {
+      console.log('the passwords don\'t match');
       this.success = false;
       return;
     }
 
-    var user = {
+    const user = {
       userid: this.newUserForm.controls.id.value,
       password: this.newUserForm.controls.password.value,
       usertype: this.newUserForm.controls.usertype.value,
-    }
+    };
 
     console.log(user);
     this.auth.register(user).subscribe(res => {
@@ -64,23 +64,23 @@ export class UserManagementComponent implements OnInit{
     }, error => {
       console.log(JSON.stringify(error));
       this.success = false;
-    })
+    });
   }
 
   loadUserList(tab) {
-    if (tab == 0) {
+    if (tab === 0) {
       this.api.getAllUsers().subscribe(res => {
-        var userArray = Object.keys(res).map(function (userIndex) {
-          let user = res[userIndex];
+        const userArray = Object.keys(res).map((userIndex) => {
+          const user = res[userIndex];
           // do something with person
           return user;
         });
-        //console.log(userArray);
-        for (let user of userArray) {
+        // console.log(userArray);
+        for (const user of userArray) {
           this.api.id = user.id;
-          this.api.isUserEnrolled().subscribe(res => {
+          this.api.isUserEnrolled().subscribe(resp => {
             // NOTE: adding a new user attribute called enrolled
-            user.enrolled = res;
+            user.enrolled = resp;
           }, error => {
             console.log(JSON.stringify(error));
           });
@@ -88,7 +88,7 @@ export class UserManagementComponent implements OnInit{
         this.allUsers = new MatTableDataSource(userArray);
       }, error => {
         console.log(JSON.stringify(error));
-        alert("Problem loading user list: " + error['error']['message']);
+        alert('Problem loading user list: ' + error.error.message);
       });
     }
   }

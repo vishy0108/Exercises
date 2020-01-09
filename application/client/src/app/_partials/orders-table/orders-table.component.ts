@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, TooltipPosition } from '@angu
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'orders-table',
   templateUrl: './orders-table.component.html',
   styleUrls: ['./orders-table.component.scss'],
@@ -24,21 +25,22 @@ export class OrdersTableComponent implements OnInit {
   columnsToDisplay = ['orderId', 'productId', 'price', 'quantity', 'producerId', 'retailerId', 'status', 'trackingInfo'];
   expandedElement: Order | null;
 
+  // tslint:disable-next-line
   @Input('regulator') regulator: boolean;
 
   constructor(private api: ApiService, private user: UserService, private cd: ChangeDetectorRef, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.currentUser = this.user.getCurrentUser();
-    //console.log("currentUser: "+this.currentUser);
+    // console.log("currentUser: "+this.currentUser);
     this.regulator = this.regulator !== undefined;
-    //console.log(`Regulator Boolean attribute is ${this.regulator ? '' : 'non-'}present!`);
+    // console.log(`Regulator Boolean attribute is ${this.regulator ? '' : 'non-'}present!`);
 
     // Load up the Orders from backend
     this.api.orders$.subscribe(currentOrders => {
       this.orders = new MatTableDataSource(currentOrders);
       this.cd.markForCheck();
-    })
+    });
     this.api.queryOrders();
   }
 
@@ -53,41 +55,42 @@ export class OrdersTableComponent implements OnInit {
       this.api.queryOrders();
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem accepting order: " + error['error']['message'])
+      alert('Problem accepting order: ' + error.error.message);
     });
   }
 
   // create dialog with shipper select menu
   chooseShipper(orderid) {
-    let shippers = [];
+    const shippers = [];
     this.api.getAllUsers().subscribe(allUsers => {
-      //console.log(allUsers);
-      var userArray = Object.keys(allUsers).map(function (userIndex) {
-        let user = allUsers[userIndex];
+      // console.log(allUsers);
+      const userArray = Object.keys(allUsers).map((userIndex) => {
+        const user = allUsers[userIndex];
         // do something with person
         return user;
       });
 
-      for (let u of userArray) {
-        if (u['usertype'] == "shipper") {
+      for (const u of userArray) {
+        if (u.usertype === 'shipper') {
           shippers.push(u);
         }
       }
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem choosing shipper: " + error['error']['message'])
+      alert('Problem choosing shipper: ' + error.error.message);
     });
 
     // Open ToShipper Dialog
+    // tslint:disable-next-line: no-use-before-declare
     const dialogRef = this.dialog.open(ToShipperDialog, {
       disableClose: false,
       width: '600px',
-      data: { shippers: shippers }
+      data: { shippers }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.assignShipper(orderid, result['id']);
+        this.assignShipper(orderid, result.id);
       }
     });
   }
@@ -100,7 +103,7 @@ export class OrdersTableComponent implements OnInit {
       this.api.queryOrders();
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem assigning shipper: " + error['error']['message'])
+      alert('Problem assigning shipper: ' + error.error.message);
     });
   }
 
@@ -111,7 +114,7 @@ export class OrdersTableComponent implements OnInit {
       this.api.queryOrders();
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem creating shipment: " + error['error']['message'])
+      alert('Problem creating shipment: ' + error.error.message);
     });
   }
 
@@ -122,7 +125,7 @@ export class OrdersTableComponent implements OnInit {
       this.api.queryOrders();
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem transporting shipment: " + error['error']['message'])
+      alert('Problem transporting shipment: ' + error.error.message);
     });
   }
 
@@ -133,17 +136,18 @@ export class OrdersTableComponent implements OnInit {
       this.api.queryOrders();
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem receiving shipment: " + error['error']['message'])
-    })
+      alert('Problem receiving shipment: ' + error.error.message);
+    });
   }
 
   // delete order
   deleteOrder(order) {
     // Open Tile Dialog
+    // tslint:disable-next-line: no-use-before-declare
     const dialogRef = this.dialog.open(DeleteOrderDialog, {
       disableClose: false,
       width: '600px',
-      data: { order: order }
+      data: { order }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -155,7 +159,7 @@ export class OrdersTableComponent implements OnInit {
           this.api.queryOrders();
         }, error => {
           console.log(JSON.stringify(error));
-          alert("Problem deleting order: " + error['error']['message'])
+          alert('Problem deleting order: ' + error.error.message);
         });
       }
     });
@@ -178,11 +182,13 @@ export interface ShipperDialogData {
 }
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'to-shipper-dialog',
   templateUrl: './../dialogs/to-shipper-dialog.html',
   styleUrls: ['./orders-table.component.scss'],
 })
 
+// tslint:disable-next-line: component-class-suffix
 export class ToShipperDialog implements OnInit {
   model: any;
   constructor(
@@ -199,11 +205,13 @@ export interface DeleteDialogData {
 }
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'delete-order-dialog',
   templateUrl: './../dialogs/delete-order-dialog.html',
   styleUrls: ['./orders-table.component.scss'],
 })
 
+// tslint:disable-next-line: component-class-suffix
 export class DeleteOrderDialog {
   model: any;
   constructor(

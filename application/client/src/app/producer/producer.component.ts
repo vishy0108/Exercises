@@ -7,7 +7,7 @@ import { UserService } from '../_services/index';
   styleUrls: ['./producer.component.scss']
 })
 export class ProducerComponent implements OnInit {
-  
+
   currentUser: any;
 
   constructor(private user: UserService) { }

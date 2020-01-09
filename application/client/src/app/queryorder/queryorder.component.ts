@@ -1,4 +1,4 @@
-// NOTE: This component isn't invoked from the UI application at this time.  
+// NOTE: This component isn't invoked from the UI application at this time.
 // Provided here in case this functionality is eventually needed in UI
 // The api/orders/<orderId> API is invoked directly from URL
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +15,7 @@ export class QueryorderComponent implements OnInit {
   messageForm: FormGroup;
   submitted = false;
   success = false;
-  order: Object;
+  order: object;
 
   constructor(private formBuilder: FormBuilder, private api: ApiService) { }
 
@@ -38,11 +38,11 @@ export class QueryorderComponent implements OnInit {
     this.api.queryOrder().subscribe(api => {
       this.order = api;
       this.success = true;
-      console.log(this.order)
+      console.log(this.order);
     }, error => {
       this.success = false;
       console.log(JSON.stringify(error));
-      alert("Query order failed: " + error['error']['message']);
+      alert('Query order failed: ' + error.error.message);
     });
   }
 }

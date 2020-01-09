@@ -6,13 +6,13 @@ import { AuthService } from './_services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
+export class AppComponent {
   title = 'Generic Supplychain Blockchain Sample';
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) {}
 
-  logout(){
-    console.log("inside Logout");
+  logout() {
+    console.log('inside Logout');
     this.authService.logout();
   }
 }

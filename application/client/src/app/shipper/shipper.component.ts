@@ -8,7 +8,7 @@ import { UserService } from '../_services/index';
 })
 
 export class ShipperComponent implements OnInit {
-  
+
   currentUser: any;
 
   constructor(private user: UserService) { }

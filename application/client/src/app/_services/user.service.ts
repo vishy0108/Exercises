@@ -7,9 +7,9 @@ export class UserService {
   // users: User[];
   currentUser: User;
 
-  id: String = "";
-  body: Object;
-  options: Object;
+  id = '';
+  body: object;
+  options: object;
 
   constructor() {
     // initialize users - for testing without connecting to a blockchain network
@@ -27,8 +27,8 @@ export class UserService {
     //   password: "adminpw",
     //   usertype: "admin"
     // }
-    let user = localStorage.getItem('currentUser');
-    if (user){
+    const user = localStorage.getItem('currentUser');
+    if (user) {
       this.currentUser = JSON.parse(user);
     }
   }
@@ -38,7 +38,7 @@ export class UserService {
   }
 
   getCurrentUser() {
-    //console.log("in getCurrentUser, this.currentUser: " + this.currentUser.userid);
+    // console.log("in getCurrentUser, this.currentUser: " + this.currentUser.userid);
     return this.currentUser;
   }
 

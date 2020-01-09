@@ -17,19 +17,19 @@ export class AuthService {
     // this.users = userService.getAll();
   }
 
-  baseUrl = "http://localhost:3000";
+  baseUrl = 'http://localhost:3000';
 
 
-  register(user){
+  register(user) {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa('admin:adminpw')); 
-    return this.httpClient.post(this.baseUrl + '/api/register-user', user, {headers:headers,responseType:'text'});
+    headers = headers.append('Authorization', 'Basic ' + btoa('admin:adminpw'));
+    return this.httpClient.post(this.baseUrl + '/api/register-user', user, {headers, responseType: 'text'});
   }
 
-  enroll(user){
+  enroll(user) {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa(user.userid+':'+user.password)); 
-    return this.httpClient.post(this.baseUrl + '/api/enroll-user', {usertype:user.usertype}, {headers:headers,responseType:'text'});
+    headers = headers.append('Authorization', 'Basic ' + btoa(user.userid + ':' + user.password));
+    return this.httpClient.post(this.baseUrl + '/api/enroll-user', {usertype: user.usertype}, {headers, responseType: 'text'});
   }
 
   logout() {

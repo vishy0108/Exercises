@@ -4,7 +4,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatDividerModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule,MatMenuModule,MatProgressBarModule, MatStepperModule,MatTableModule,MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import {
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+} from '@angular/material';
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -47,7 +55,7 @@ import { AuthGuard } from './_guards/auth.guard';
     OrderHistoryComponent,
     OrdersTableComponent,
     ToShipperDialog,
-    DeleteOrderDialog
+    DeleteOrderDialog,
   ],
   imports: [
     BrowserModule,
@@ -62,18 +70,10 @@ import { AuthGuard } from './_guards/auth.guard';
     MatInputModule,
     MatTabsModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
   ],
-  providers: [
-    ApiService,
-    AuthService,
-    UserService,
-    AuthGuard
-  ],
+  providers: [ApiService, AuthService, UserService, AuthGuard],
   bootstrap: [AppComponent],
-  entryComponents: [
-    ToShipperDialog,
-    DeleteOrderDialog
-  ]
+  entryComponents: [ToShipperDialog, DeleteOrderDialog],
 })
-export class AppModule { }
+export class AppModule {}

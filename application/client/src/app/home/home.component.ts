@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  //title = 'Supply Chain PoC using';
+  // title = 'Supply Chain PoC using';
   constructor() { }
 
   ngOnInit() {

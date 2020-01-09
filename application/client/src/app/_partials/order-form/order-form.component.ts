@@ -5,6 +5,7 @@ import { ApiService, UserService } from './../../_services/index';
 import { MatDialog } from '@angular/material';
 
 @Component({
+  // tslint:disable-next-line
   selector: 'order-form',
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss']
@@ -14,10 +15,10 @@ export class OrderFormComponent implements OnInit {
   messageForm: FormGroup;
   submitted = false;
   success = false;
-  order: Object;
-  messages: String[];
+  order: object;
+  messages: string[];
   currentUser: any;
-  producerId: String;
+  producerId: string;
   producers: any[];
 
   constructor(
@@ -48,53 +49,53 @@ export class OrderFormComponent implements OnInit {
     }
 
     this.api.body = {
-      orderId: "order-" + uuid(),
+      orderId: 'order-' + uuid(),
       productId: this.messageForm.controls.productid.value,
       price: this.messageForm.controls.price.value,
       quantity: this.messageForm.controls.quantity.value,
       producerId: this.messageForm.controls.producerid.value,
       retailerId: this.currentUser.userid
-    }
+    };
 
     this.api.orderProduct().subscribe(api => {
-      this.order = api
+      this.order = api;
       console.log(this.order);
       this.api.queryOrders();
       this.success = true;
-      //alert ("Order Created Successfully!")
+      // alert ("Order Created Successfully!")
     }, error => {
       this.success = false;
-      alert("Problem creating Order: " + error['error']['message'])
-    })
+      alert('Problem creating Order: ' + error.error.message);
+    });
   }
 
   // Get the list of registered Producers
   getProducers() {
     this.producers = [];
     this.api.getAllUsers().subscribe(allUsers => {
-      var userArray = Object.keys(allUsers).map(function (userIndex) {
-        let user = allUsers[userIndex];
+      const userArray = Object.keys(allUsers).map((userIndex) => {
+        const user = allUsers[userIndex];
         // do something with person
         return user;
       });
 
-      for (let u of userArray) {
-        if (u['usertype'] == "producer") {
+      for (const u of userArray) {
+        if (u.usertype === 'producer') {
           this.producers.push(u);
         }
       }
-      console.log("List of Producers: ");
+      console.log('List of Producers: ');
       console.log(this.producers);
     }, error => {
       console.log(JSON.stringify(error));
-      alert("Problem getting list of users: " + error['error']['message']);
+      alert('Problem getting list of users: ' + error.error.message);
     });
   }
 }
 
 // Generate a random number to create orderId
 function uuid() {
-  const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-  return `${s4()}`
+  const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  return `${s4()}`;
 }
 
