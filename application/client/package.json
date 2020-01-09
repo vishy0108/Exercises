@@ -1,12 +1,13 @@
 {
   "name": "genericapp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint && npm run prettier-check",
+    "prettier-check": "prettier --check src/",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -43,6 +44,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "prettier": "^2.0.5",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
