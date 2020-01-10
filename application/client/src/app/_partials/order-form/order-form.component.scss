@@ -1,8 +1,9 @@
-@import './../../colors.scss';
+@import "./../../colors.scss";
 label {
   display: block;
 
-  input, textarea {
+  input,
+  textarea {
     display: block;
     width: 100%;
     height: 25px;
@@ -13,9 +14,9 @@ label {
   .error {
     margin-top: -20px;
     background: yellow;
-    padding: .5em;
+    padding: 0.5em;
     display: inline-block;
-    font-size: .9em;
+    font-size: 0.9em;
     margin-bottom: 20px;
   }
 }
@@ -34,7 +35,7 @@ label {
   // border-radius: 4px;
   padding: 1em;
   cursor: pointer;
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .form-button:hover {
@@ -54,7 +55,7 @@ label {
   width: 50%;
   padding: 5px;
   float: left;
-  overflow-y:scroll;
+  overflow-y: scroll;
   p {
     display: block;
     width: 100%;
@@ -63,4 +64,3 @@ label {
     text-align: left;
   }
 }
-

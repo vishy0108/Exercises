@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { User } from '../_models/user';
+import { Injectable } from "@angular/core";
+import { User } from "../_models/user";
 
 @Injectable()
 export class UserService {
@@ -7,7 +7,7 @@ export class UserService {
   // users: User[];
   currentUser: User;
 
-  id = '';
+  id = "";
   body: object;
   options: object;
 
@@ -27,7 +27,7 @@ export class UserService {
     //   password: "adminpw",
     //   usertype: "admin"
     // }
-    const user = localStorage.getItem('currentUser');
+    const user = localStorage.getItem("currentUser");
     if (user) {
       this.currentUser = JSON.parse(user);
     }

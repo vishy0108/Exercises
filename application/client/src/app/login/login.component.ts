@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService, UserService } from '../_services/index';
-import { User } from '../_models/user';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { ApiService, UserService } from "../_services/index";
+import { User } from "../_models/user";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  providers: []
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
+  providers: [],
 })
-
 export class LoginComponent {
   model: any = {};
   loading = false;
@@ -19,34 +18,37 @@ export class LoginComponent {
     private router: Router,
     private apiService: ApiService,
     private userService: UserService
-  ) { }
+  ) {}
 
   login() {
-    console.log('In login ()');
+    console.log("In login ()");
     this.loading = true;
 
     const user = {
       userid: this.model.userid,
       password: this.model.password,
-      usertype: ''
+      usertype: "",
     };
 
     this.apiService.id = this.model.userid;
     this.apiService.pwd = this.model.password;
 
-    this.apiService.getUser().subscribe((res: User) => {
-      user.usertype = res.usertype;
-      this.userService.setCurrentUser(user);
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      if (res.usertype === 'admin') {
-        this.router.navigate(['users']);
-      } else {
-        this.router.navigate([res.usertype]);
+    this.apiService.getUser().subscribe(
+      (res: User) => {
+        user.usertype = res.usertype;
+        this.userService.setCurrentUser(user);
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        if (res.usertype === "admin") {
+          this.router.navigate(["users"]);
+        } else {
+          this.router.navigate([res.usertype]);
+        }
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Login failed: ");
+        this.loading = false;
       }
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Login failed: ');
-      this.loading = false;
-    });
+    );
   }
 }

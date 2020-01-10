@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { QueryorderComponent } from './queryorder.component';
+import { QueryorderComponent } from "./queryorder.component";
 
-describe('QueryorderComponent', () => {
+describe("QueryorderComponent", () => {
   let component: QueryorderComponent;
   let fixture: ComponentFixture<QueryorderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QueryorderComponent ]
-    })
-    .compileComponents();
+      declarations: [QueryorderComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('QueryorderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

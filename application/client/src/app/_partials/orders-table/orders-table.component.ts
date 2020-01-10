@@ -1,34 +1,67 @@
-import { Component, Inject, Input, OnInit, ChangeDetectorRef } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { ApiService, UserService } from '../../_services/index';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, TooltipPosition } from '@angular/material';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  Component,
+  Inject,
+  Input,
+  OnInit,
+  ChangeDetectorRef,
+} from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { ApiService, UserService } from "../../_services/index";
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  TooltipPosition,
+} from "@angular/material";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from "@angular/animations";
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'orders-table',
-  templateUrl: './orders-table.component.html',
-  styleUrls: ['./orders-table.component.scss'],
+  selector: "orders-table",
+  templateUrl: "./orders-table.component.html",
+  styleUrls: ["./orders-table.component.scss"],
   providers: [],
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    trigger("detailExpand", [
+      state("collapsed", style({ height: "0px", minHeight: "0" })),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      ),
     ]),
   ],
 })
-
 export class OrdersTableComponent implements OnInit {
   orders: MatTableDataSource<Order[]>;
   currentUser: any;
-  columnsToDisplay = ['orderId', 'productId', 'price', 'quantity', 'producerId', 'retailerId', 'status', 'trackingInfo'];
+  columnsToDisplay = [
+    "orderId",
+    "productId",
+    "price",
+    "quantity",
+    "producerId",
+    "retailerId",
+    "status",
+    "trackingInfo",
+  ];
   expandedElement: Order | null;
 
   // tslint:disable-next-line
-  @Input('regulator') regulator: boolean;
+  @Input("regulator") regulator: boolean;
 
-  constructor(private api: ApiService, private user: UserService, private cd: ChangeDetectorRef, public dialog: MatDialog) { }
+  constructor(
+    private api: ApiService,
+    private user: UserService,
+    private cd: ChangeDetectorRef,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.user.getCurrentUser();
@@ -37,7 +70,7 @@ export class OrdersTableComponent implements OnInit {
     // console.log(`Regulator Boolean attribute is ${this.regulator ? '' : 'non-'}present!`);
 
     // Load up the Orders from backend
-    this.api.orders$.subscribe(currentOrders => {
+    this.api.orders$.subscribe((currentOrders) => {
       this.orders = new MatTableDataSource(currentOrders);
       this.cd.markForCheck();
     });
@@ -51,44 +84,50 @@ export class OrdersTableComponent implements OnInit {
   // producer
   acceptOrder(orderid) {
     this.api.id = orderid;
-    this.api.receiveOrder().subscribe(api => {
-      this.api.queryOrders();
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Problem accepting order: ' + error.error.message);
-    });
+    this.api.receiveOrder().subscribe(
+      (api) => {
+        this.api.queryOrders();
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Problem accepting order: " + error.error.message);
+      }
+    );
   }
 
   // create dialog with shipper select menu
   chooseShipper(orderid) {
     const shippers = [];
-    this.api.getAllUsers().subscribe(allUsers => {
-      // console.log(allUsers);
-      const userArray = Object.keys(allUsers).map((userIndex) => {
-        const user = allUsers[userIndex];
-        // do something with person
-        return user;
-      });
+    this.api.getAllUsers().subscribe(
+      (allUsers) => {
+        // console.log(allUsers);
+        const userArray = Object.keys(allUsers).map((userIndex) => {
+          const user = allUsers[userIndex];
+          // do something with person
+          return user;
+        });
 
-      for (const u of userArray) {
-        if (u.usertype === 'shipper') {
-          shippers.push(u);
+        for (const u of userArray) {
+          if (u.usertype === "shipper") {
+            shippers.push(u);
+          }
         }
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Problem choosing shipper: " + error.error.message);
       }
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Problem choosing shipper: ' + error.error.message);
-    });
+    );
 
     // Open ToShipper Dialog
     // tslint:disable-next-line: no-use-before-declare
     const dialogRef = this.dialog.open(ToShipperDialog, {
       disableClose: false,
-      width: '600px',
-      data: { shippers }
+      width: "600px",
+      data: { shippers },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.assignShipper(orderid, result.id);
       }
@@ -99,45 +138,57 @@ export class OrdersTableComponent implements OnInit {
   assignShipper(orderid, shipperid) {
     this.api.id = orderid;
     this.api.shipperid = shipperid;
-    this.api.assignShipper().subscribe(api => {
-      this.api.queryOrders();
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Problem assigning shipper: ' + error.error.message);
-    });
+    this.api.assignShipper().subscribe(
+      (api) => {
+        this.api.queryOrders();
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Problem assigning shipper: " + error.error.message);
+      }
+    );
   }
 
   // shipper
   createShipment(orderid) {
     this.api.id = orderid;
-    this.api.createShipment().subscribe(api => {
-      this.api.queryOrders();
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Problem creating shipment: ' + error.error.message);
-    });
+    this.api.createShipment().subscribe(
+      (api) => {
+        this.api.queryOrders();
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Problem creating shipment: " + error.error.message);
+      }
+    );
   }
 
   // shipper
   transportShipment(orderid) {
     this.api.id = orderid;
-    this.api.transportShipment().subscribe(api => {
-      this.api.queryOrders();
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Problem transporting shipment: ' + error.error.message);
-    });
+    this.api.transportShipment().subscribe(
+      (api) => {
+        this.api.queryOrders();
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Problem transporting shipment: " + error.error.message);
+      }
+    );
   }
 
   // retailer
   receiveShipment(orderid) {
     this.api.id = orderid;
-    this.api.receiveShipment().subscribe(api => {
-      this.api.queryOrders();
-    }, error => {
-      console.log(JSON.stringify(error));
-      alert('Problem receiving shipment: ' + error.error.message);
-    });
+    this.api.receiveShipment().subscribe(
+      (api) => {
+        this.api.queryOrders();
+      },
+      (error) => {
+        console.log(JSON.stringify(error));
+        alert("Problem receiving shipment: " + error.error.message);
+      }
+    );
   }
 
   // delete order
@@ -146,21 +197,23 @@ export class OrdersTableComponent implements OnInit {
     // tslint:disable-next-line: no-use-before-declare
     const dialogRef = this.dialog.open(DeleteOrderDialog, {
       disableClose: false,
-      width: '600px',
-      data: { order }
+      width: "600px",
+      data: { order },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.api.id = order.orderId;
-        this.api.deleteOrder().subscribe(res => {
-          console.log(res);
-          this.api.queryOrders();
-        }, error => {
-          console.log(JSON.stringify(error));
-          alert('Problem deleting order: ' + error.error.message);
-        });
+        this.api.deleteOrder().subscribe(
+          (res) => {
+            console.log(res);
+            this.api.queryOrders();
+          },
+          (error) => {
+            console.log(JSON.stringify(error));
+            alert("Problem deleting order: " + error.error.message);
+          }
+        );
       }
     });
   }
@@ -183,9 +236,9 @@ export interface ShipperDialogData {
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'to-shipper-dialog',
-  templateUrl: './../dialogs/to-shipper-dialog.html',
-  styleUrls: ['./orders-table.component.scss'],
+  selector: "to-shipper-dialog",
+  templateUrl: "./../dialogs/to-shipper-dialog.html",
+  styleUrls: ["./orders-table.component.scss"],
 })
 
 // tslint:disable-next-line: component-class-suffix
@@ -193,7 +246,8 @@ export class ToShipperDialog implements OnInit {
   model: any;
   constructor(
     public dialogRef: MatDialogRef<ToShipperDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: ShipperDialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: ShipperDialogData
+  ) {}
 
   ngOnInit() {
     this.model = {};
@@ -206,9 +260,9 @@ export interface DeleteDialogData {
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'delete-order-dialog',
-  templateUrl: './../dialogs/delete-order-dialog.html',
-  styleUrls: ['./orders-table.component.scss'],
+  selector: "delete-order-dialog",
+  templateUrl: "./../dialogs/delete-order-dialog.html",
+  styleUrls: ["./orders-table.component.scss"],
 })
 
 // tslint:disable-next-line: component-class-suffix
@@ -216,5 +270,6 @@ export class DeleteOrderDialog {
   model: any;
   constructor(
     public dialogRef: MatDialogRef<DeleteOrderDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DeleteDialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: DeleteDialogData
+  ) {}
 }
