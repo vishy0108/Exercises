@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint && npm run prettier-check",
-    "prettier-check": "prettier --check src/",
+    "prettier-check": "prettier --check .",
     "e2e": "ng e2e"
   },
   "private": true,
