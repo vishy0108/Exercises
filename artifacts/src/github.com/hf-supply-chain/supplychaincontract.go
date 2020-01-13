@@ -42,15 +42,18 @@ func (sc *Contract) OrderProduct(ctx contractapi.TransactionContextInterface, ar
 		Quantity: orderDetails.quantity,
 		ProducerId: orderDetails.producerId,
 		ShipperId: orderDetails.shipperId,
-		RetailerId: or	role, ok, err := ctx.GetAttributeValue("role")
-		if err != nil {
-		return nil, fmt.Errorf("Error retrieving attribute `role` %s", err.Error())
-		}
+		RetailerId: orderDetails.retailerId
+	}	
 	
-		if !ok {
-		return nil, errors.New("Client doesn't have attribute role")
-		}derDetails.retailerId
+	role, ok, err := ctx.GetAttributeValue("role")
+	if err != nil {
+		return nil, fmt.Errorf("Error retrieving attribute `role` %s", err.Error())
 	}
+	
+	if !ok {
+		return nil, errors.New("Client doesn't have attribute role")
+	}
+	
 	order.SetStateToOrderCreated()
 
 	dataAsBytes, err := order.Serialize()
