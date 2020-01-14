@@ -1,4 +1,5 @@
 import express, { Express } from "express";
+import { config } from "./config";
 
 const app: Express = express();
 app.use(express.json());
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const PORT = 3000;
+const { PORT } = config;
 app.listen(PORT, (err) => {
   if (err) {
     console.log("Failed to start server");
