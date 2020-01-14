@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "prestart": "npm run build",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
     "build": "tsc -p tsconfig.json",
     "lint": "npm run prettier-check && npm run tslint-check",
     "prettier-check": "prettier --check .",
@@ -15,6 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
   },

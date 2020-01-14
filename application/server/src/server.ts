@@ -24,6 +24,7 @@ app.use("/api", supplyChainRouter);
 app.use("/api", userRouter);
 
 const { PORT } = config;
+
 app.listen(PORT, (err) => {
   if (err) {
     console.log("Failed to start server");
