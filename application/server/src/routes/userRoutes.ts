@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { FabricCAClient } from "../services/fabric-ca-client";
+import { FabricCAClient } from "../services";
 import { handleError } from "../errorHandler";
 import { HTTP_RESPONSE_CODES } from "../errors";
 

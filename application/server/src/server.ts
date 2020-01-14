@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import { config } from "./config";
+import { supplyChainRouter, userRouter } from "./routes";
 
 const app: Express = express();
 app.use(express.json());
@@ -18,6 +19,9 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+app.use("/api", supplyChainRouter);
+app.use("/api", userRouter);
 
 const { PORT } = config;
 app.listen(PORT, (err) => {
