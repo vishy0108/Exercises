@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api", supplyChainRouter);
-app.use("/api", userRouter);
+app.use("/api/users", userRouter);
 
 const { PORT } = config;
 
