@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
     "lint": "npm run prettier-check && npm run tslint-check",
     "prettier-check": "prettier --check .",
     "tslint-check": "tslint -p tsconfig.json"
