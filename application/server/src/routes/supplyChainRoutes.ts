@@ -1,3 +1,5 @@
+import { randomBytes } from "crypto";
+
 import { Application, Router, Request, Response, request } from "express";
 import { handleError } from "../errorHandler";
 import { HTTP_RESPONSE_CODES } from "../errors";
@@ -69,9 +71,11 @@ export const supplyChainRouter = (app: Application) => {
     async (req: Request, res: Response) => {
       try {
         const orderID = req.params.id;
+        const shipperID = req.query.shipperid;
         const assignShipperResponse = await fabricCAClient.submitTransaction(
           CONTRACT_METHODS.ASSIGN_SHIPPER,
-          orderID
+          orderID,
+          shipperID
         );
         return res.status(STATUS_SUCCESS).send(assignShipperResponse);
       } catch (error) {
@@ -91,7 +95,8 @@ export const supplyChainRouter = (app: Application) => {
         const orderID = req.params.id;
         const assignShipperResponse = await fabricCAClient.submitTransaction(
           CONTRACT_METHODS.CREATE_SHIPMENT,
-          orderID
+          orderID,
+          randomBytes(6).toString("hex")
         );
         return res.status(STATUS_SUCCESS).send(assignShipperResponse);
       } catch (error) {
