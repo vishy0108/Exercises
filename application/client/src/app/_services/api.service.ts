@@ -146,7 +146,7 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = this.createUserAuthorizationHeader(headers);
     return this.httpClient.put(
-      this.baseUrl + "/api/receive-order/" + this.id,
+      this.baseUrl + "/api/orders/" + this.id + "/receive",
       {},
       { headers }
     );
@@ -157,9 +157,9 @@ export class ApiService {
     headers = this.createUserAuthorizationHeader(headers);
     return this.httpClient.put(
       this.baseUrl +
-        "/api/assign-shipper/" +
+        "/api/orders/" +
         this.id +
-        "?shipperid=" +
+        "/assign-shipper?" +
         this.shipperid,
       {},
       { headers }
@@ -170,7 +170,7 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = this.createUserAuthorizationHeader(headers);
     return this.httpClient.put(
-      this.baseUrl + "/api/create-shipment-for-order/" + this.id,
+      this.baseUrl + "/api/orders/" + this.id + "/create-shipment",
       {},
       { headers }
     );
@@ -180,7 +180,7 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = this.createUserAuthorizationHeader(headers);
     return this.httpClient.put(
-      this.baseUrl + "/api/transport-shipment/" + this.id,
+      this.baseUrl + "/api/orders/" + this.id + "/transport-shipment",
       {},
       { headers }
     );
@@ -190,7 +190,7 @@ export class ApiService {
     let headers = new HttpHeaders();
     headers = this.createUserAuthorizationHeader(headers);
     return this.httpClient.put(
-      this.baseUrl + "/api/receive-shipment/" + this.id,
+      this.baseUrl + "/api/orders/" + this.id + "/receive-shipment",
       {},
       { headers }
     );
