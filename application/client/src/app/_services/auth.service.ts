@@ -27,7 +27,7 @@ export class AuthService {
   register(user) {
     let headers = new HttpHeaders();
     headers = headers.append("Authorization", "Basic " + btoa("admin:adminpw"));
-    return this.httpClient.post(this.baseUrl + "/api/register-user", user, {
+    return this.httpClient.post(this.baseUrl + "/api/users/register", user, {
       headers,
       responseType: "text",
     });
@@ -40,7 +40,7 @@ export class AuthService {
       "Basic " + btoa(user.userid + ":" + user.password)
     );
     return this.httpClient.post(
-      this.baseUrl + "/api/enroll-user",
+      this.baseUrl + "/api/users/enroll",
       { usertype: user.usertype },
       { headers, responseType: "text" }
     );
