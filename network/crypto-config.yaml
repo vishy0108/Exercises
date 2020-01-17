@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# "OrdererOrgs" - Definition of organizations managing orderer nodes
+OrdererOrgs:
+  # ---------------------------------------------------------------------------
+  # OrdererOrg
+  # ---------------------------------------------------------------------------
+  - Name: Orderer
+    Domain: abacsupplychain.io
+    EnableNodeOUs: true
+    Specs:
+      - Hostname: orderer
+# ---------------------------------------------------------------------------
+# "PeerOrgs" - Definition of organizations managing peer nodes
+# ---------------------------------------------------------------------------
+PeerOrgs:
+  # ---------------------------------------------------------------------------
+  # RetailerOrg
+  # ---------------------------------------------------------------------------
+  - Name: Retailer
+    Domain: retailer.abacsupplychain.io
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    # ---------------------------------------------------------------------------
+    # "Users"
+    # ---------------------------------------------------------------------------
+    # Count: The number of user accounts _in addition_ to Admin
+    # ---------------------------------------------------------------------------
+    Users:
+      Count: 1
+  # ---------------------------------------------------------------------------
+  # ProducerOrg
+  # ---------------------------------------------------------------------------
+  - Name: Producer
+    Domain: producer.abacsupplychain.io
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+  # ---------------------------------------------------------------------------
+  # ShipperOrg
+  # ---------------------------------------------------------------------------
+  - Name: Shipper
+    Domain: shipper.abacsupplychain.io
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    Users:
+      Count: 1
+  # ---------------------------------------------------------------------------
+  # RegulatorOrg
+  # ---------------------------------------------------------------------------
+  - Name: Regulator
+    Domain: regulator.abacsupplychain.io
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    Users:
+      Count: 1
