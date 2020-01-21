@@ -3,7 +3,7 @@ version: "2"
 services:
   orderer.abacsupplychain.io:
     container_name: orderer.abacsupplychain.io
-    image: hyperledger/fabric-orderer:$IMAGE_TAG
+    image: hyperledger/fabric-orderer:2.0.1
     environment:
       - ORDERER_GENERAL_LOGLEVEL=INFO
       - FABRIC_LOGGING_SPEC=INFO
