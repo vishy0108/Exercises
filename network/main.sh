@@ -109,10 +109,15 @@ function networkUp() {
         generateChannelArtifacts
     fi
     # Create folder for docker network logs
+    echo
+    echo "=========================================="
+    echo "Creating a log dir for docker network logs"
+    echo "=========================================="
     LOG_DIR=$(dirname $LOG_FILE)
     if [ ! -d $LOG_DIR ]; then
         mkdir -p $LOG_DIR
     fi
+    echo "Something else"
     IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up >$LOG_FILE 2>&1 &
 
     if [ $? -ne 0 ]; then
@@ -268,58 +273,58 @@ function generateChannelArtifacts() {
         exit 1
     fi
 
-    # echo
-    # echo "#####################################################################"
-    # echo "#######  Generating anchor peer update for RetailerMSP     ##########"
-    # echo "#####################################################################"
-    # set -x
-    # configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/RetailerMSP.tx -channelID $CHANNEL_NAME -asOrg RetailerMSP --configPath $PWD
-    # res=$?
-    # set +x
-    # if [ $res -ne 0 ]; then
-    #     echo "Failed to generate anchor peer update for RetailerMSP..."
-    #     exit 1
-    # fi
+    echo
+    echo "#####################################################################"
+    echo "#######  Generating anchor peer update for RetailerOrg     ##########"
+    echo "#####################################################################"
+    set -x
+    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/RetailerOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg RetailerOrg --configPath $PWD
+    res=$?
+    set +x
+    if [ $res -ne 0 ]; then
+        echo "Failed to generate anchor peer update for RetailerOrg..."
+        exit 1
+    fi
 
-    # echo
-    # echo "#####################################################################"
-    # echo "#######  Generating anchor peer update for ProducerMSP     ##########"
-    # echo "#####################################################################"
-    # set -x
-    # configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/ProducerMSPanchors.tx -channelID $CHANNEL_NAME -asOrg ProducerMSP --configPath $PWD
-    # res=$?
-    # set +x
-    # if [ $res -ne 0 ]; then
-    #     echo "Failed to generate anchor peer update for ProducerMSP..."
-    #     exit 1
-    # fi
+    echo
+    echo "#####################################################################"
+    echo "#######  Generating anchor peer update for ProducerOrg     ##########"
+    echo "#####################################################################"
+    set -x
+    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/ProducerOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg ProducerOrg --configPath $PWD
+    res=$?
+    set +x
+    if [ $res -ne 0 ]; then
+        echo "Failed to generate anchor peer update for ProducerOrg..."
+        exit 1
+    fi
 
-    # echo
-    # echo "#####################################################################"
-    # echo "#######  Generating anchor peer update for ShipperMSP      ##########"
-    # echo "#####################################################################"
-    # set -x
-    # configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/ShipperMSPanchors.tx -channelID $CHANNEL_NAME -asOrg ShipperMSP --configPath $PWD
-    # res=$?
-    # set +x
-    # if [ $res -ne 0 ]; then
-    #     echo "Failed to generate anchor peer update for ShipperMSP..."
-    #     exit 1
-    # fi
+    echo
+    echo "#####################################################################"
+    echo "#######  Generating anchor peer update for ShipperOrg      ##########"
+    echo "#####################################################################"
+    set -x
+    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/ShipperOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg ShipperOrg --configPath $PWD
+    res=$?
+    set +x
+    if [ $res -ne 0 ]; then
+        echo "Failed to generate anchor peer update for ShipperOrg..."
+        exit 1
+    fi
 
-    # echo
-    # echo "#####################################################################"
-    # echo "#######  Generating anchor peer update for RegulatorMSP    ##########"
-    # echo "#####################################################################"
-    # set -x
-    # configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/RegulatorMSPanchors.tx -channelID $CHANNEL_NAME -asOrg RegulatorMSP --configPath $PWD
-    # res=$?
-    # set +x
-    # if [ $res -ne 0 ]; then
-    #     echo "Failed to generate anchor peer update for RegulatorMSP..."
-    #     exit 1
-    # fi
-    # echo
+    echo
+    echo "#####################################################################"
+    echo "#######  Generating anchor peer update for RegulatorOrg    ##########"
+    echo "#####################################################################"
+    set -x
+    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/RegulatorOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg RegulatorOrg --configPath $PWD
+    res=$?
+    set +x
+    if [ $res -ne 0 ]; then
+        echo "Failed to generate anchor peer update for RegulatorOrg..."
+        exit 1
+    fi
+    echo
 }
 
 # use this as the default docker-compose yaml definition
