@@ -22,11 +22,12 @@ services:
       - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-tls/priv_sk
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.retailer.abacsupplychain.io-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/priv_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/retailer.abacsupplychain.io/ca:/etc/hyperledger/fabric-ca-server-config
       - ./crypto-config/peerOrganizations/retailer.abacsupplychain.io/tlsca:/etc/hyperledger/fabric-ca-server-tls
     container_name: ca.retailer.abacsupplychain.io
+    hostname: ca.retailer.abacsupplychain.io
     networks:
       - trade
 
@@ -47,6 +48,7 @@ services:
       - ./crypto-config/peerOrganizations/producer.abacsupplychain.io/ca:/etc/hyperledger/fabric-ca-server-config
       - ./crypto-config/peerOrganizations/producer.abacsupplychain.io/tlsca:/etc/hyperledger/fabric-ca-server-tls
     container_name: ca.producer.abacsupplychain.io
+    hostname: ca.producer.abacsupplychain.io
     networks:
       - trade
 
@@ -67,6 +69,7 @@ services:
       - ./crypto-config/peerOrganizations/shipper.abacsupplychain.io/ca:/etc/hyperledger/fabric-ca-server-config
       - ./crypto-config/peerOrganizations/shipper.abacsupplychain.io/tlsca:/etc/hyperledger/fabric-ca-server-tls
     container_name: ca.shipper.abacsupplychain.io
+    hostname: ca.shipper.abacsupplychain.io
     networks:
       - trade
 
@@ -87,6 +90,7 @@ services:
       - ./crypto-config/peerOrganizations/regulator.abacsupplychain.io/ca:/etc/hyperledger/fabric-ca-server-config
       - ./crypto-config/peerOrganizations/regulator.abacsupplychain.io/tlsca:/etc/hyperledger/fabric-ca-server-tls
     container_name: ca.regulator.abacsupplychain.io
+    hostname: ca.regulator.abacsupplychain.io
     networks:
       - trade
 
