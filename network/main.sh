@@ -113,17 +113,22 @@ function networkUp() {
     echo "=========================================="
     echo "Creating a log dir for docker network logs"
     echo "=========================================="
+    echo
+
     LOG_DIR=$(dirname $LOG_FILE)
     if [ ! -d $LOG_DIR ]; then
         mkdir -p $LOG_DIR
     fi
-    echo "Something else"
     IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up >$LOG_FILE 2>&1 &
 
     if [ $? -ne 0 ]; then
         echo "ERROR !!!! Unable to start network"
         exit 1
     fi
+
+    echo "Starting logs ..."
+    echo
+    tail -f logs/network.log
 }
 
 # Bring down running network
