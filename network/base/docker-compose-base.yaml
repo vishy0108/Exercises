@@ -45,12 +45,6 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
-
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/mspSP
     volumes:
       - /var/run/:/host/var/run/
       - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
@@ -81,12 +75,6 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.abacsupplychain.io:7051
-
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
     volumes:
       - /var/run/:/host/var/run/
       - ../crypto-config/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
@@ -117,12 +105,6 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.abacsupplychain.io:7051
-
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
     volumes:
       - /var/run/:/host/var/run/
       - ../crypto-config/peerOrganizations/shipper.abacsupplychain.io/peers/peer0.shipper.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
@@ -153,12 +135,6 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.regulator.abacsupplychain.io:7051
-
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
     volumes:
       - /var/run/:/host/var/run/
       - ../crypto-config/peerOrganizations/regulator.abacsupplychain.io/peers/peer0.regulator.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
