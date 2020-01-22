@@ -34,7 +34,7 @@ services:
     environment:
       - CORE_PEER_ID=peer0.producer.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.producer.abacsupplychain.io:7051
-      - CORE_PEER_CHAINCODE_ADDRESS=peer0.producer.abacsupplychain.io:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.producer.abacsupplychain.io:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=ProducerMSP
@@ -57,7 +57,7 @@ services:
     environment:
       - CORE_PEER_ID=peer0.retailer.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.retailer.abacsupplychain.io:7051
-      - CORE_PEER_CHAINCODE_ADDRESS=peer0.retailer.abacsupplychain.io:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.retailer.abacsupplychain.io:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.abacsupplychain.io:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=RetailerMSP
@@ -80,7 +80,7 @@ services:
     environment:
       - CORE_PEER_ID=peer0.shipper.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.shipper.abacsupplychain.io:7051
-      - CORE_PEER_CHAINCODE_ADDRESS=peer0.shipper.abacsupplychain.io:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.shipper.abacsupplychain.io:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=ShipperMSP
@@ -103,7 +103,7 @@ services:
     environment:
       - CORE_PEER_ID=peer0.regulator.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.regulator.abacsupplychain.io:7051
-      - CORE_PEER_CHAINCODE_ADDRESS=peer0.regulator.abacsupplychain.io:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.regulator.abacsupplychain.io:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:7051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.regulator.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=RegulatorMSP
