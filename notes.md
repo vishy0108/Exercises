@@ -260,7 +260,7 @@ This connection profile is not exhaustive, in the sense even though the `Org1` h
 - Do not include `.pem` key text directly for tlsCaCerts. Inlcude full path only.
 - Mandatorily include `adminPrivateKey`, `signedCert`
 
-The above points are stressed as they differ from the git repo description
+The above points are stressed as they differ from the git repo description. Upon further inspection, `balance-transfer` example might be where you want to look at.
 
 The more unnecessary info you include the more you suffer debugging.
 
