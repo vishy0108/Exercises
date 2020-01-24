@@ -37,6 +37,11 @@
 
 - In Solidity, we have `Global State Variables` defined. Whenever a transaction executed, changes made to these are automatically stored to the ledger. However, in case of `Hyperledger Fabric`, this is approached differently. All those variables whose state needs to be maintained, should manually be updated using `ctx.GetStub().GetState` and/or `ctx.GetStub().PutState` within the smart contract itself.
 
+- Peer vs Client
+- AccessControl via NodeOUs
+- Why AnchorPeers are needed?
+- Solo Kafka Raft
+
 # Crypto Config YAML
 
 Base template for the YAML file can be found by:
@@ -99,3 +104,167 @@ configtxgen --profile FourOrgsSupplyChainGenesis --outputBlock ./channel-artifac
 # Docker file for network setup/teardown
 
 All you need to do now is attach all the crypto material generated to the docker containers, while properly attaching volumes and defining the names consistently as in the `configtx.yaml`
+
+# Connecting via Blockchain Explorer
+
+Check requirements:
+
+- Nodejs 10 and 12 (10.19 and 12.16 tested)
+- PostgreSQL 9.5 or greater
+- jq
+
+Clone via:
+
+```sh
+git clone https://github.com/hyperledger/blockchain-explorer
+```
+
+```
+cd blockchain-explorer/app
+nano explorerconfig.json
+```
+
+```
+cd blockchain-explorer/app/persistence/fabric/postgresSQL/db
+./createdb.sh
+```
+
+Check the screenshots for the logs.
+![Create database Postgres success result](.images/create-db.png "create-db-postgres-success-result")
+![Create database Postgres success result - part 2](.images/create-db-2.png "create-db-postgres-success-result-part-2")
+
+Next
+
+```sh
+cd blockchain-explorer/app/platform/fabric/connection-profile
+nano supplychain.json
+```
+
+Next
+
+```
+cd blockchain-explorer
+rm logs/console/console.log
+
+# One time dependencies install
+./main.sh install
+./start.sh
+```
+
+The `start.sh` has a weird behaviour of not displaying logs. It just prints this each time and exits:
+
+```sh
+************************************************************************************
+**************************** Hyperledger Explorer **********************************
+************************************************************************************
+```
+
+But you can check logs via:
+
+```sh
+cat logs/console/console.log
+```
+
+or
+
+```sh
+tail logs/console/console.log
+```
+
+Each time you restart the explorer with a different network/ca-certs:
+
+```
+cd blockchain-explorer
+rm -rf wallet
+./stop.sh
+
+rm logs/console/console.log
+./start.sh
+```
+
+The following error is displayed if the channel is not joined by peer:
+![Endorser not connected error](.images/endorser-not-connected.png "endorser-not-connected-error")
+
+More troubleshooting [at](https://github.com/hyperledger/blockchain-explorer/blob/master/TROUBLESHOOT.md)
+
+# Fabcar network sample connection-profile for explorer
+
+```json
+{
+  "name": "fabcar-network",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
+  "client": {
+    "tlsEnable": false,
+    "adminUser": "admin",
+    "adminPassword": "adminpw",
+    "enableAuthentication": false,
+    "organization": "Org1",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "mychannel": {
+      "peers": {
+        "peer0.org1.example.com": {}
+      },
+      "connection": {
+        "timeout": {
+          "peer": {
+            "endorser": "6000",
+            "eventHub": "6000",
+            "eventReg": "6000"
+          }
+        }
+      }
+    }
+  },
+  "organizations": {
+    "Org1": {
+      "mspid": "Org1MSP",
+      "peers": ["peer0.org1.example.com"],
+      "fullpath": true,
+      "adminPrivateKey": {
+        "path": "/home/ubuntu/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/5fc7e741ff718e74647d19241f539602b11e5dcca3d010aa6f9016b73bc7a5ac_sk"
+      },
+      "signedCert": {
+        "path": "/home/ubuntu/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.org1.example.com": {
+      "url": "grpcs://localhost:7051",
+      "tlsCACerts": {
+        "path": "/home/ubuntu/fabric-samples/test-network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org1.example.com",
+        "hostnameOverride": "peer0.org1.example.com"
+      }
+    }
+  }
+}
+```
+
+This connection profile is not exhaustive, in the sense even though the `Org1` has other entities like `orderer`, `certificateAuthority` and a different organization `Org2`, they are all omitted.
+
+## Things to keep in mind
+
+- Do not include `.pem` key text directly for tlsCaCerts. Inlcude full path only.
+- Mandatorily include `adminPrivateKey`, `signedCert`
+
+The above points are stressed as they differ from the git repo description
+
+The more unnecessary info you include the more you suffer debugging.
+
+**Note** Albeit fabric explorer page says HF1.4 is _only_ supported. It is displaying the block and transaction hash information.
+
+If everything works, the blockchain explorer would look like:
+![Explorer](.images/explorer.png "explorer")
