@@ -41,6 +41,93 @@
 - AccessControl via NodeOUs
 - Why AnchorPeers are needed?
 - Solo Kafka Raft
+- Why is Fabric more scalable than PoW Blockchains?
+
+  Because of distribution of transaction life cycle as endorsing and commiting across peers
+
+- How is privacy acheieved in Hyperledger Fabric?
+
+  Separation of transaction data from broader availability using the creation of channels. Within a channel, transaction data can further be limited to a subset of participants using private data collections.
+
+- How is access control acheived in Hyperledger Fabric?
+
+  Enabling Node OUs and classifying participants in the consortium under `admin`, `orderer`, `peer`, `client`. Thereby limiting what each identity can do with regards to ledger updates/ledger reads.
+
+- Who is an Orderer?
+
+  Orderer is the one who initiates the network using a network configuration. This configuration includes a consortium of participating organizations and their root CAs embedded into a genesis block.
+
+  It is the orderer who creates a channel transaction
+
+- Who is an Peer?
+
+  Peer is the one responsible for storing the ledger and updating/querying. However the smart contract interaction part can be limited to certain peers only. This means if there are 2 peers in an organization: Both will make state changes to the ledgers while only one of them can possibly `take a greater responsibility of generating the updated changes(ReadSet and WriteSet) and be able to provide application access for chaincode interactions`
+
+- Who is admin?
+
+  Admin, as the name suggests, performs administrative functions. Within a channel, an admin of organization is responsible for installing/instantiating the chaincode.
+
+  Within the context of an orderer, an admin can manage the network access to various organizations.
+
+- What is Channel?
+
+  A channel is a logical separation layer of information among the participants on a network.
+
+- Why create multiple channels in the same network when you can bootstrap different networks?
+
+  Managing of crypto-materials is an overhead. You wouldn't want to carelessly do it n-number-of-times.
+
+- What is an Application/Client in fabric network?
+
+  An application provides the ability to do:
+
+  1. Provide the ability to dynamically generate the crypto material, register/enroll users
+  2. Ability to invoke/query chaincode via a peer
+
+- What are root certs, intermediate certs in the context of Certificate Authority(CA)?
+
+  Root Certs are supposed to be blindly trusted(self-signed) and they serve the following purposes:
+
+  1. Ability to issue other certs. These certificate issuance is necessary tp establish the identity of other peers.
+  2. Revoke certs using certificate revocation lists(CRLs)
+
+  However root certs never directly issue bulk certs directly to users/peers. They do this via intermediate certs. This way if one of the intermediate certs is compromised only a part of network identity needs to be reset.
+
+  Intermediate certs can issue other intermediate certs as well.
+
+- How does one request a certificate to be issued from CA?
+
+  A user first generates a public/private keypair. Generates a Certifcate Signing Request(CSR) from this keypair. This certificate signing request is sent to the CA.
+
+  CA would verify the signature against the public key along with other info. in the CSR, generate a certificate and sign with one of the intermediate certificates. So generated client certificate can be tracked back to the root cert via a chain of trust involving intermediate certs.
+
+- Who verifies the identity of the dertificate whether a member belongs to a organization or not?
+
+  Memebership Service Provider provides the verifiability of a user to a network. It does this by storing the necessary root certs of an organization.
+
+  Also MSP is just an directory of various certs and keystore
+
+  MSP provides:
+
+  - Certificate Validation
+  - Certificate Revocation Lists
+  - Signing from the private key in keystore
+
+- Folder structure of crypto material
+
+  Organization would have:
+
+  1. CA - Root Cert and the priv_sk
+  2. MSP - cacerts, admincerts, config.yaml with the ability to enable/disable NodeOUs.
+  3. Peers - List of peers in the organization
+  4. Users - List of other users/admins in the organization
+
+  Peers and Users have similar folder structure: the msp folder
+  Inside the MSP folder, we have cacerts, admincerts, keystore, signcerts
+
+  Keystore - Holds the secret key
+  SignCert - Certificate of the peer/user signed by the CA specifiying the role
+  CACerts and AdminCerts are there so that if other peers communicate via Gossip, validation is possible
 
 # Crypto Config YAML
 
@@ -104,6 +191,8 @@ configtxgen --profile FourOrgsSupplyChainGenesis --outputBlock ./channel-artifac
 # Docker file for network setup/teardown
 
 All you need to do now is attach all the crypto material generated to the docker containers, while properly attaching volumes and defining the names consistently as in the `configtx.yaml`
+
+More info on starting ca's using docker-compose can be found [at](https://hyperledger-fabric-ca.readthedocs.io/en/latest/operations_guide.html)
 
 # Connecting via Blockchain Explorer
 
@@ -268,3 +357,7 @@ The more unnecessary info you include the more you suffer debugging.
 
 If everything works, the blockchain explorer would look like:
 ![Explorer](.images/explorer.png "explorer")
+
+# Resources and Thought Experiments
+
+[KC Tam Medium](https://medium.com/@kctheservant)
