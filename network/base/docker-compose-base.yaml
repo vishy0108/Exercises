@@ -33,12 +33,6 @@ services:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - FABRIC_LOGGING_SPEC=DEBUG
-      - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=RetailerMSP
-
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE={COMPOSE_PROJECT_NAME}_test
-
       - CORE_PEER_ID=peer0.retailer.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.retailer.abacsupplychain.io:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
@@ -46,12 +40,12 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.abacsupplychain.io:7051
+      - CORE_PEER_LOCALMSPID=RetailerMSP
     volumes:
       - /var/run/:/host/var/run/
-      - ../crypto-config/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
-      - ../crypto-config/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
+      - ../crypto-config/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.retailer.abacsupplychain.io:/var/hyperledger/production
-      - ../channel/:/etc/hyperledger/channel/
     ports:
       - 7051:7051
       - 7053:7053
@@ -63,12 +57,6 @@ services:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - FABRIC_LOGGING_SPEC=DEBUG
-      - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=ProducerMSP
-
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE={COMPOSE_PROJECT_NAME}_test
-
       - CORE_PEER_ID=peer0.producer.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.producer.abacsupplychain.io:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
@@ -76,12 +64,12 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
+      - CORE_PEER_LOCALMSPID=ProducerMSP
     volumes:
       - /var/run/:/host/var/run/
-      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
-      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
+      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.producer.abacsupplychain.io:/var/hyperledger/production
-      - ./channel/:/etc/hyperledger/channel/
     ports:
       - 8051:7051
       - 8053:7053
@@ -93,12 +81,6 @@ services:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - FABRIC_LOGGING_SPEC=DEBUG
-      - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=ShipperMSP
-
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE={COMPOSE_PROJECT_NAME}_test
-
       - CORE_PEER_ID=peer0.shipper.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.shipper.abacsupplychain.io:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
@@ -106,12 +88,12 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.abacsupplychain.io:7051
+      - CORE_PEER_LOCALMSPID=ShipperMSP
     volumes:
       - /var/run/:/host/var/run/
-      - ../crypto-config/peerOrganizations/shipper.abacsupplychain.io/peers/peer0.shipper.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
-      - ../crypto-config/peerOrganizations/shipper.abacsupplychain.io/peers/peer0.shipper.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
+      - ../crypto-config/peerOrganizations/shipper.abacsupplychain.io/peers/peer0.shipper.abacsupplychain.io/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/shipper.abacsupplychain.io/peers/peer0.shipper.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.shipper.abacsupplychain.io:/var/hyperledger/production
-      - ./channel/:/etc/hyperledger/channel/
     ports:
       - 9051:7051
       - 9053:7053
@@ -123,12 +105,6 @@ services:
       file: peer-base.yaml
       service: peer-base
     environment:
-      - FABRIC_LOGGING_SPEC=DEBUG
-      - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=RegulatorMSP
-
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE={COMPOSE_PROJECT_NAME}_test
-
       - CORE_PEER_ID=peer0.regulator.abacsupplychain.io
       - CORE_PEER_ADDRESS=peer0.regulator.abacsupplychain.io:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
@@ -136,12 +112,12 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:8051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.regulator.abacsupplychain.io:7051
+      - CORE_PEER_LOCALMSPID=RegulatorMSP
     volumes:
       - /var/run/:/host/var/run/
-      - ../crypto-config/peerOrganizations/regulator.abacsupplychain.io/peers/peer0.regulator.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
-      - ../crypto-config/peerOrganizations/regulator.abacsupplychain.io/peers/peer0.regulator.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
+      - ../crypto-config/peerOrganizations/regulator.abacsupplychain.io/peers/peer0.regulator.abacsupplychain.io/msp:/etc/hyperledger/fabric/msp
+      - ../crypto-config/peerOrganizations/regulator.abacsupplychain.io/peers/peer0.regulator.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.regulator.abacsupplychain.io:/var/hyperledger/production
-      - ./channel/:/etc/hyperledger/channel/
     ports:
       - 10051:7051
       - 10053:7053
