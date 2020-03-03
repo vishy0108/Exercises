@@ -17,44 +17,15 @@ services:
       - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
       - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
       - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/orderers
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
     command: orderer
     volumes:
       - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
       - ../crypto-config/ordererOrganizations/abacsupplychain.io/orderers/orderer.abacsupplychain.io/msp:/var/hyperledger/orderer/msp
       - ../crypto-config/ordererOrganizations/abacsupplychain.io/orderers/orderer.abacsupplychain.io/tls:/var/hyperledger/orderer/tls
+      - orderer.abacsupplychain.io:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
-
-  peer0.producer.abacsupplychain.io:
-    container_name: peer0.producer.abacsupplychain.io
-    extends:
-      file: peer-base.yaml
-      service: peer-base
-    environment:
-      - FABRIC_LOGGING_SPEC=DEBUG
-      - ORDERER_GENERAL_LOGLEVEL=DEBUG
-      - CORE_PEER_LOCALMSPID=Org1MSP
-
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE={COMPOSE_PROJECT_NAME}_test
-
-      - CORE_PEER_ID=peer0.producer.abacsupplychain.io
-      - CORE_PEER_ADDRESS=peer0.producer.abacsupplychain.io:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.producer.abacsupplychain.io:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:8051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
-    volumes:
-      - /var/run/:/host/var/run/
-      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
-      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
-      - peer0.producer.abacsupplychain.io:/var/hyperledger/production
-      - ./channel/:/etc/hyperledger/channel/
-    ports:
-      - 7051:7051
-      - 7053:7053
-      - 7055:6060
 
   peer0.retailer.abacsupplychain.io:
     container_name: peer0.retailer.abacsupplychain.io
@@ -81,6 +52,36 @@ services:
       - ../crypto-config/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
       - peer0.retailer.abacsupplychain.io:/var/hyperledger/production
       - ../channel/:/etc/hyperledger/channel/
+    ports:
+      - 7051:7051
+      - 7053:7053
+      - 7055:6060
+
+  peer0.producer.abacsupplychain.io:
+    container_name: peer0.producer.abacsupplychain.io
+    extends:
+      file: peer-base.yaml
+      service: peer-base
+    environment:
+      - FABRIC_LOGGING_SPEC=DEBUG
+      - ORDERER_GENERAL_LOGLEVEL=DEBUG
+      - CORE_PEER_LOCALMSPID=Org1MSP
+
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE={COMPOSE_PROJECT_NAME}_test
+
+      - CORE_PEER_ID=peer0.producer.abacsupplychain.io
+      - CORE_PEER_ADDRESS=peer0.producer.abacsupplychain.io:7051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.producer.abacsupplychain.io:7052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:8051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
+    volumes:
+      - /var/run/:/host/var/run/
+      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/msp:/etc/hyperledger/crypto/peer/msp
+      - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/tls:/etc/hyperledger/crypto/peer/tls
+      - peer0.producer.abacsupplychain.io:/var/hyperledger/production
+      - ./channel/:/etc/hyperledger/channel/
     ports:
       - 8051:7051
       - 8053:7053
