@@ -5,7 +5,7 @@ OrdererOrgs:
   # ---------------------------------------------------------------------------
   # OrdererOrg
   # ---------------------------------------------------------------------------
-  - Name: Orderer
+  - Name: OrdererOrg
     Domain: abacsupplychain.io
     EnableNodeOUs: true
     Specs:
@@ -17,7 +17,7 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # RetailerOrg
   # ---------------------------------------------------------------------------
-  - Name: Retailer
+  - Name: RetailerOrg
     Domain: retailer.abacsupplychain.io
     EnableNodeOUs: true
     Template:
@@ -32,7 +32,7 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # ProducerOrg
   # ---------------------------------------------------------------------------
-  - Name: Producer
+  - Name: ProducerOrg
     Domain: producer.abacsupplychain.io
     EnableNodeOUs: true
     Template:
@@ -42,7 +42,7 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # ShipperOrg
   # ---------------------------------------------------------------------------
-  - Name: Shipper
+  - Name: ShipperOrg
     Domain: shipper.abacsupplychain.io
     EnableNodeOUs: true
     Template:
@@ -52,7 +52,7 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # RegulatorOrg
   # ---------------------------------------------------------------------------
-  - Name: Regulator
+  - Name: RegulatorOrg
     Domain: regulator.abacsupplychain.io
     EnableNodeOUs: true
     Template:

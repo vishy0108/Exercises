@@ -6,132 +6,125 @@
 #   be referenced later in the configuration.
 #
 ################################################################################
+---
 Organizations:
   - &OrdererOrg
-    Name: OrdererOrg
-    ID: OrdererMSP
-
-    MSPDir: crypto-config/ordererOrganizations/abacsupplychain.io/msp
-
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('OrdererMSP.member')"
-      Writers:
-        Type: Signature
-        Rule: "OR('OrdererMSP.member')"
-      Admins:
-        Type: Signature
-        Rule: "OR('OrdererMSP.admin')"
+        Name: OrdererOrgMSP
+        ID: OrdererMSP
+        MSPDir: crypto-config/ordererOrganizations/abacsupplychain.io/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
 
   - &RetailerOrg
-    Name: RetailerOrg
-    ID: RetailerMSP
-
-    MSPDir: crypto-config/peerOrganizations/retailer.abacsupplychain.io/msp
-
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client', 'RetailerMSP.peer')"
-      Writers:
-        Type: Signature
-        Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client')"
-      Admins:
-        Type: Signature
-        Rule: "OR('RetailerMSP.admin')"
-      Endorsement:
-        Type: Signature
-        Rule: "OR('RetailerMSP.peer')"
-
-    AnchorPeers:
-      - Host: peer0.retailer.abacsupplychain.io
-        Port: 7051
+        Name: RetailerOrgMSP
+        ID: RetailerMSP
+        MSPDir: crypto-config/peerOrganizations/retailer.abacsupplychain.io/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client', 'RetailerMSP.peer')"
+            Writers:
+                Type: Signature
+                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('RetailerMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('RetailerMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.retailer.abacsupplychain.io
+              Port: 7051
 
   - &ProducerOrg
-    Name: ProducerOrg
-    ID: ProducerMSP
+        Name: ProducerOrgMSP
+        ID: ProducerMSP
+        MSPDir: crypto-config/peerOrganizations/producer.abacsupplychain.io/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client', 'ProducerMSP.peer')"
+            Writers:
+                Type: Signature
+                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('ProducerMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('ProducerMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.producer.abacsupplychain.io
+              Port: 8051
 
-    MSPDir: crypto-config/peerOrganizations/producer.abacsupplychain.io/msp
-
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client', 'ProducerMSP.peer')"
-      Writers:
-        Type: Signature
-        Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client')"
-      Admins:
-        Type: Signature
-        Rule: "OR('ProducerMSP.admin')"
-      Endorsement:
-        Type: Signature
-        Rule: "OR('ProducerMSP.peer')"
-
-    AnchorPeers:
-      - Host: peer0.producer.abacsupplychain.io
-        Port: 7051
   - &ShipperOrg
-    Name: ShipperOrg
-    ID: ShipperMSP
+        Name: ShipperOrgMSP
+        ID: ShipperMSP
+        MSPDir: crypto-config/peerOrganizations/shipper.abacsupplychain.io/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('ShipperMSP.admin', 'ShipperMSP.client', 'ShipperMSP.peer')"
+            Writers:
+                Type: Signature
+                Rule: "OR('ShipperMSP.admin', 'ShipperMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('ShipperMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('ShipperMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.shipper.abacsupplychain.io
+              Port: 9051
 
-    MSPDir: crypto-config/peerOrganizations/shipper.abacsupplychain.io/msp
-
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('ShipperMSP.admin', 'ShipperMSP.client', 'ShipperMSP.peer')"
-      Writers:
-        Type: Signature
-        Rule: "OR('ShipperMSP.admin', 'ShipperMSP.client')"
-      Admins:
-        Type: Signature
-        Rule: "OR('ShipperMSP.admin')"
-      Endorsement:
-        Type: Signature
-        Rule: "OR('ShipperMSP.peer')"
-
-    AnchorPeers:
-      - Host: peer0.shipper.abacsupplychain.io
-        Port: 7051
   - &RegulatorOrg
-    Name: RegulatorOrg
-    ID: RegulatorMSP
+        Name: RegulatorOrgMSP
+        ID: RegulatorMSP
+        MSPDir: crypto-config/peerOrganizations/regulator.abacsupplychain.io/msp
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('RegulatorMSP.admin', 'RegulatorMSP.client', 'RegulatorMSP.peer')"
+            Writers:
+                Type: Signature
+                Rule: "OR('RegulatorMSP.admin', 'RegulatorMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('RegulatorMSP.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('RegulatorMSP.peer')"
+        AnchorPeers:
+            - Host: peer0.regulator.abacsupplychain.io
+              Port: 10051
 
-    MSPDir: crypto-config/peerOrganizations/regulator.abacsupplychain.io/msp
-
-    Policies:
-      Readers:
-        Type: Signature
-        Rule: "OR('RegulatorMSP.admin', 'RegulatorMSP.client', 'RegulatorMSP.peer')"
-      Writers:
-        Type: Signature
-        Rule: "OR('RegulatorMSP.admin', 'RegulatorMSP.client')"
-      Admins:
-        Type: Signature
-        Rule: "OR('RegulatorMSP.admin')"
-      Endorsement:
-        Type: Signature
-        Rule: "OR('RegulatorMSP.peer')"
-
-    AnchorPeers:
-      - Host: peer0.regulator.abacsupplychain.io
-        Port: 7051
 ################################################################################
 #
 #   SECTION: Capabilities
 #
 ################################################################################
 Capabilities:
-  Global: &ChannelCapabilities
-    V2_0: true
-  Orderer: &OrdererCapabilities
-    V2_0: true
+    Global:
+        V2_0: true
+    Channel: &ChannelCapabilities
+        V2_0: true
+    Orderer: &OrdererCapabilities
+        V2_0: true
   # Application capabilities apply only to the peer network, and may be safely
   # manipulated without concern for upgrading orderers.  Set the value of the
   # capability to true to require it.
-  Application: &ApplicationCapabilities
-    V2_0: true
+    Application: &ApplicationCapabilities
+        V2_0: true
+
 ################################################################################
 #
 #   SECTION: Application
@@ -141,73 +134,72 @@ Capabilities:
 #
 ###############################################################################
 Application: &ApplicationDefaults
-  Organizations:
 
-  Policies:
-    Readers:
-      Type: ImplicitMeta
-      Rule: "ANY Readers"
-    Writers:
-      Type: ImplicitMeta
-      Rule: "ANY Writers"
-    Admins:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Admins"
-    LifecycleEndorsement:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Endorsement"
-    Endorsement:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Endorsement"
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        LifecycleEndorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+        Endorsement:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Endorsement"
+
+    Capabilities:
+        <<: *ApplicationCapabilities
+
 ################################################################################
 #
 #   SECTION: Orderer
 #
 ################################################################################
 Orderer: &OrdererDefaults
-  # Orderer Type: The orderer implementation to start
-  # Available types are "solo" and "kafka"
-  OrdererType: solo
-  Addresses:
-    - orderer.abacsupplychain.io:7050
-  # Batch Timeout: The amount of time to wait before creating a batch
-  BatchTimeout:
-    2s
-    # Batch Size: Controls the number of messages batched into a block
-  BatchSize:
-    # Max Message Count: The maximum number of messages to permit in a batch
-    MaxMessageCount: 10
-    # Absolute Max Bytes: The absolute maximum number of bytes allowed for
-    # the serialized messages in a batch.
-    AbsoluteMaxBytes: 99 MB
-    # Preferred Max Bytes: The preferred maximum number of bytes allowed for
-    # the serialized messages in a batch. A message larger than the preferred
-    # max bytes will result in a batch larger than preferred max bytes.
-    PreferredMaxBytes: 512 KB
-  Kafka:
-    # Brokers: A list of Kafka brokers to which the orderer connects
-    # NOTE: Use IP:port notation
-    Brokers:
-      - 127.0.0.1:9092
-  # Organizations is the list of orgs which are defined as participants on
-  # the orderer side of the network
-  Organizations:
+    # Orderer Type: The orderer implementation to start
+    # Available types are "solo" and "kafka"
+    OrdererType: solo
+    Addresses:
+        - orderer.abacsupplychain.io:7050
+    # Batch Timeout: The amount of time to wait before creating a batch
+    BatchTimeout:
+        2s
+        # Batch Size: Controls the number of messages batched into a block
+    BatchSize:
+        # Max Message Count: The maximum number of messages to permit in a batch
+        MaxMessageCount: 10
+        # Absolute Max Bytes: The absolute maximum number of bytes allowed for
+        # the serialized messages in a batch.
+        AbsoluteMaxBytes: 99 MB
+        # Preferred Max Bytes: The preferred maximum number of bytes allowed for
+        # the serialized messages in a batch. A message larger than the preferred
+        # max bytes will result in a batch larger than preferred max bytes.
+        PreferredMaxBytes: 512 KB
+    # Organizations is the list of orgs which are defined as participants on
+    # the orderer side of the network
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
+        # BlockValidation specifies what signatures must be included in the block
+        # from the orderer for the peer to validate it.
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
 
-  Policies:
-    Readers:
-      Type: ImplicitMeta
-      Rule: "ANY Readers"
-    Writers:
-      Type: ImplicitMeta
-      Rule: "ANY Writers"
-    Admins:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Admins"
-    # BlockValidation specifies what signatures must be included in the block
-    # from the orderer for the peer to validate it.
-    BlockValidation:
-      Type: ImplicitMeta
-      Rule: "ANY Writers"
 ################################################################################
 #
 #   CHANNEL
@@ -220,22 +212,23 @@ Channel: &ChannelDefaults
   # Policies defines the set of policies at this level of the config tree
   # For Channel policies, their canonical path is
   #   /Channel/<PolicyName>
-  Policies:
-    Readers:
-      Type: ImplicitMeta
-      Rule: "ANY Readers"
-    Writers:
-      Type: ImplicitMeta
-      Rule: "ANY Writers"
-    Admins:
-      Type: ImplicitMeta
-      Rule: "MAJORITY Admins"
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "MAJORITY Admins"
 
   # Capabilities describes the channel level capabilities, see the
   # dedicated Capabilities section elsewhere in this file for a full
   # description
-  Capabilities:
-    <<: *ChannelCapabilities
+    Capabilities:
+        <<: *ChannelCapabilities
+
 ################################################################################
 #
 #   Profile
@@ -245,34 +238,39 @@ Channel: &ChannelDefaults
 #
 ################################################################################
 Profiles:
-  FourOrgsSupplyChainGenesis:
-    <<: *ChannelDefaults
-    Capabilities:
-      <<: *ChannelCapabilities
-    Orderer:
-      <<: *OrdererDefaults
-      Organizations:
-        - *OrdererOrg
-      Capabilities:
-        <<: *OrdererCapabilities
+    FourOrgsSupplyChainGenesis:
+        <<: *ChannelDefaults
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+            - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+            - <<: *OrdererOrg
 
-    Consortiums:
-      SupplyChainConsortium:
-        Organizations:
-          - *RetailerOrg
-          - *ProducerOrg
-          - *ShipperOrg
-          - *RegulatorOrg
+        Consortiums:
+            SupplyChainConsortium:
+                Organizations:
+                - *RetailerOrg
+                - *ProducerOrg
+                - *ShipperOrg
+                - *RegulatorOrg
 
-  FourOrgsSupplyChainChannel:
-    <<: *ChannelDefaults
-    Consortium: SupplyChainConsortium
-    Application:
-      <<: *ApplicationDefaults
-      Organizations:
-        - *RetailerOrg
-        - *ProducerOrg
-        - *ShipperOrg
-        - *RegulatorOrg
-      Capabilities:
-        <<: *ApplicationCapabilities
+    FourOrgsSupplyChainChannel:
+        <<: *ChannelDefaults
+        Consortium: SupplyChainConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *RetailerOrg
+                - *ProducerOrg
+                - *ShipperOrg
+                - *RegulatorOrg
+            Capabilities:
+                <<: *ApplicationCapabilities
