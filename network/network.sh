@@ -1,15 +1,11 @@
 #!/bin/bash
-export PATH=${PWD}/../bin:${PWD}:$PATH
 export FABRIC_CFG_PATH=${PWD}
-
-# By default we standup a full network.
-DEV_MODE=false
 
 # Print the usage message
 function printHelp() {
     echo "Usage: "
-    echo "  main.sh up|down|restart|generate|reset|clean [-c <channel name>] [-f <docker-compose-file>] [-i <imagetag>] [-o <logfile>]"
-    echo "  main.sh -h|--help (print this message)"
+    echo "  network.sh up|down|restart|generate|reset|clean [-c <channel name>] [-f <docker-compose-file>] [-i <imagetag>] [-o <logfile>]"
+    echo "  network.sh -h|--help (print this message)"
     echo "    <mode> - one of 'up', 'down', 'restart' or 'generate'"
     echo "      - 'up' - bring up the network with docker-compose up"
     echo "      - 'down' - clear the network with docker-compose down"
@@ -25,16 +21,16 @@ function printHelp() {
     echo "Typically, one would first generate the required certificates and "
     echo "genesis block, then bring up the network. e.g.:"
     echo
-    echo "	main.sh generate -c tradechannel"
-    echo "	main.sh up -c tradechannel -o logs/network.log"
-    echo "        main.sh up -c tradechannel -i 1.1.0-alpha"
-    echo "	main.sh down -c tradechannel"
-    echo "        main.sh upgrade -c tradechannel"
+    echo "	network.sh generate -c tradechannel"
+    echo "	network.sh up -c tradechannel -o logs/network.log"
+    echo "        network.sh up -c tradechannel -i 1.1.0-alpha"
+    echo "	network.sh down -c tradechannel"
+    echo "        network.sh upgrade -c tradechannel"
     echo
     echo "Taking all defaults:"
-    echo "	main.sh generate"
-    echo "	main.sh up"
-    echo "	main.sh down"
+    echo "	network.sh generate"
+    echo "	network.sh up"
+    echo "	network.sh down"
 }
 
 # Ask user for confirmation to proceed
@@ -116,7 +112,7 @@ function networkUp() {
     if [ ! -d $LOG_DIR ]; then
         mkdir -p $LOG_DIR
     fi
-    IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up >$LOG_FILE 2>&1 &
+    IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up>$LOG_FILE 2>&1 &
 
     if [ $? -ne 0 ]; then
         echo "ERROR !!!! Unable to start network"
@@ -262,71 +258,6 @@ function generateChannelArtifacts() {
         echo "Failed to generate orderer genesis block..."
         exit 1
     fi
-    echo
-    echo "###################################################################"
-    echo "###  Generating channel configuration transaction  'channel.tx' ###"
-    echo "###################################################################"
-    set -x
-    configtxgen -profile $CHANNEL_PROFILE -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME --configPath $PWD
-    res=$?
-    set +x
-    if [ $res -ne 0 ]; then
-        echo "Failed to generate channel configuration transaction..."
-        exit 1
-    fi
-
-    echo
-    echo "#####################################################################"
-    echo "#######  Generating anchor peer update for RetailerOrg     ##########"
-    echo "#####################################################################"
-    set -x
-    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/RetailerOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg RetailerOrg --configPath $PWD
-    res=$?
-    set +x
-    if [ $res -ne 0 ]; then
-        echo "Failed to generate anchor peer update for RetailerOrg..."
-        exit 1
-    fi
-
-    echo
-    echo "#####################################################################"
-    echo "#######  Generating anchor peer update for ProducerOrg     ##########"
-    echo "#####################################################################"
-    set -x
-    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/ProducerOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg ProducerOrg --configPath $PWD
-    res=$?
-    set +x
-    if [ $res -ne 0 ]; then
-        echo "Failed to generate anchor peer update for ProducerOrg..."
-        exit 1
-    fi
-
-    echo
-    echo "#####################################################################"
-    echo "#######  Generating anchor peer update for ShipperOrg      ##########"
-    echo "#####################################################################"
-    set -x
-    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/ShipperOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg ShipperOrg --configPath $PWD
-    res=$?
-    set +x
-    if [ $res -ne 0 ]; then
-        echo "Failed to generate anchor peer update for ShipperOrg..."
-        exit 1
-    fi
-
-    echo
-    echo "#####################################################################"
-    echo "#######  Generating anchor peer update for RegulatorOrg    ##########"
-    echo "#####################################################################"
-    set -x
-    configtxgen -profile $CHANNEL_PROFILE -outputAnchorPeersUpdate ./channel-artifacts/RegulatorOrgAnchors.tx -channelID $CHANNEL_NAME -asOrg RegulatorOrg --configPath $PWD
-    res=$?
-    set +x
-    if [ $res -ne 0 ]; then
-        echo "Failed to generate anchor peer update for RegulatorOrg..."
-        exit 1
-    fi
-    echo
 }
 
 # use this as the default docker-compose yaml definition
@@ -336,7 +267,6 @@ COMPOSE_FILE_NEW_ORG=add_org/docker-compose-exportingEntityOrg.yaml
 IMAGETAG="latest"
 # default log file
 LOG_FILE="logs/network.log"
-LOG_FILE_NEW_ORG="logs/network-neworg.log"
 # Parse commandline args
 
 MODE=$1
