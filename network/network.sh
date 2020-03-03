@@ -112,7 +112,7 @@ function networkUp() {
     if [ ! -d $LOG_DIR ]; then
         mkdir -p $LOG_DIR
     fi
-    IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up>$LOG_FILE 2>&1 &
+    IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE up -d >$LOG_FILE 2>&1 &
 
     if [ $? -ne 0 ]; then
         echo "ERROR !!!! Unable to start network"
