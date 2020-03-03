@@ -8,8 +8,8 @@
 ################################################################################
 ---
 Organizations:
-  - &OrdererOrg
-        Name: OrdererOrgMSP
+    - &OrdererOrg
+        Name: OrdererOrg
         ID: OrdererMSP
         MSPDir: crypto-config/ordererOrganizations/abacsupplychain.io/msp
         Policies:
@@ -23,14 +23,14 @@ Organizations:
                 Type: Signature
                 Rule: "OR('OrdererMSP.admin')"
 
-  - &RetailerOrg
+    - &RetailerOrg
         Name: RetailerOrgMSP
         ID: RetailerMSP
         MSPDir: crypto-config/peerOrganizations/retailer.abacsupplychain.io/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client', 'RetailerMSP.peer')"
+                Rule: "OR('RetailerMSP.admin', 'RetailerMSP.peer', 'RetailerMSP.client')"
             Writers:
                 Type: Signature
                 Rule: "OR('RetailerMSP.admin', 'RetailerMSP.client')"
@@ -44,14 +44,14 @@ Organizations:
             - Host: peer0.retailer.abacsupplychain.io
               Port: 7051
 
-  - &ProducerOrg
+    - &ProducerOrg
         Name: ProducerOrgMSP
         ID: ProducerMSP
         MSPDir: crypto-config/peerOrganizations/producer.abacsupplychain.io/msp
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client', 'ProducerMSP.peer')"
+                Rule: "OR('ProducerMSP.admin', 'ProducerMSP.peer', 'ProducerMSP.client')"
             Writers:
                 Type: Signature
                 Rule: "OR('ProducerMSP.admin', 'ProducerMSP.client')"
@@ -65,7 +65,7 @@ Organizations:
             - Host: peer0.producer.abacsupplychain.io
               Port: 8051
 
-  - &ShipperOrg
+    - &ShipperOrg
         Name: ShipperOrgMSP
         ID: ShipperMSP
         MSPDir: crypto-config/peerOrganizations/shipper.abacsupplychain.io/msp
@@ -86,7 +86,7 @@ Organizations:
             - Host: peer0.shipper.abacsupplychain.io
               Port: 9051
 
-  - &RegulatorOrg
+    - &RegulatorOrg
         Name: RegulatorOrgMSP
         ID: RegulatorMSP
         MSPDir: crypto-config/peerOrganizations/regulator.abacsupplychain.io/msp
@@ -167,22 +167,11 @@ Orderer: &OrdererDefaults
     OrdererType: solo
     Addresses:
         - orderer.abacsupplychain.io:7050
-    # Batch Timeout: The amount of time to wait before creating a batch
-    BatchTimeout:
-        2s
-        # Batch Size: Controls the number of messages batched into a block
+    BatchTimeout: 2s
     BatchSize:
-        # Max Message Count: The maximum number of messages to permit in a batch
         MaxMessageCount: 10
-        # Absolute Max Bytes: The absolute maximum number of bytes allowed for
-        # the serialized messages in a batch.
         AbsoluteMaxBytes: 99 MB
-        # Preferred Max Bytes: The preferred maximum number of bytes allowed for
-        # the serialized messages in a batch. A message larger than the preferred
-        # max bytes will result in a batch larger than preferred max bytes.
         PreferredMaxBytes: 512 KB
-    # Organizations is the list of orgs which are defined as participants on
-    # the orderer side of the network
     Organizations:
     Policies:
         Readers:
@@ -194,8 +183,6 @@ Orderer: &OrdererDefaults
         Admins:
             Type: ImplicitMeta
             Rule: "MAJORITY Admins"
-        # BlockValidation specifies what signatures must be included in the block
-        # from the orderer for the peer to validate it.
         BlockValidation:
             Type: ImplicitMeta
             Rule: "ANY Writers"
@@ -238,6 +225,7 @@ Channel: &ChannelDefaults
 #
 ################################################################################
 Profiles:
+    
     FourOrgsSupplyChainGenesis:
         <<: *ChannelDefaults
         Capabilities:
