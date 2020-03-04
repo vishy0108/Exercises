@@ -3,22 +3,9 @@ version: "2"
 services:
   orderer.abacsupplychain.io:
     container_name: orderer.abacsupplychain.io
-    image: hyperledger/fabric-orderer:$IMAGE_TAG
-    environment:
-      - ORDERER_GENERAL_LOGLEVEL=INFO
-      - FABRIC_LOGGING_SPEC=INFO
-      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
-      - ORDERER_GENERAL_GENESISMETHOD=file
-      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
-      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
-      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
-      # enabled TLS
-      - ORDERER_GENERAL_TLS_ENABLED=true
-      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
-      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
-      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt]
-    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
-    command: orderer
+    extends:
+      file: peer-base.yaml
+      service: orderer-bas
     volumes:
       - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
       - ../crypto-config/ordererOrganizations/abacsupplychain.io/orderers/orderer.abacsupplychain.io/msp:/var/hyperledger/orderer/msp
