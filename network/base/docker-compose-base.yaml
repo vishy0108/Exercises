@@ -5,11 +5,11 @@ services:
     container_name: orderer.abacsupplychain.io
     extends:
       file: peer-base.yaml
-      service: orderer-bas
+      service: orderer-base
     volumes:
       - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
       - ../crypto-config/ordererOrganizations/abacsupplychain.io/orderers/orderer.abacsupplychain.io/msp:/var/hyperledger/orderer/msp
-      - ../crypto-config/ordererOrganizations/abacsupplychain.io/orderers/orderer.abacsupplychain.io/tls:/var/hyperledger/orderer/tls
+      - ../crypto-config/ordererOrganizations/abacsupplychain.io/orderers/orderer.abacsupplychain.io/tls/:/var/hyperledger/orderer/tls
       - orderer.abacsupplychain.io:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
@@ -25,7 +25,7 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
       - CORE_PEER_CHAINCODEADDRESS=peer0.retailer.abacsupplychain.io:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.abacsupplychain.io:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.abacsupplychain.io:9051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=RetailerMSP
     volumes:
@@ -35,8 +35,6 @@ services:
       - peer0.retailer.abacsupplychain.io:/var/hyperledger/production
     ports:
       - 7051:7051
-      - 7053:7053
-      - 7055:6060
 
   peer0.producer.abacsupplychain.io:
     container_name: peer0.producer.abacsupplychain.io
@@ -49,7 +47,7 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
       - CORE_PEER_CHAINCODEADDRESS=peer0.producer.abacsupplychain.io:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:9051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=ProducerMSP
     volumes:
@@ -59,8 +57,6 @@ services:
       - peer0.producer.abacsupplychain.io:/var/hyperledger/production
     ports:
       - 8051:7051
-      - 8053:7053
-      - 8055:6060
 
   peer0.shipper.abacsupplychain.io:
     container_name: peer0.shipper.abacsupplychain.io
@@ -83,8 +79,6 @@ services:
       - peer0.shipper.abacsupplychain.io:/var/hyperledger/production
     ports:
       - 9051:7051
-      - 9053:7053
-      - 9055:6060
 
   peer0.regulator.abacsupplychain.io:
     container_name: peer0.regulator.abacsupplychain.io
@@ -107,5 +101,3 @@ services:
       - peer0.regulator.abacsupplychain.io:/var/hyperledger/production
     ports:
       - 10051:7051
-      - 10053:7053
-      - 10055:6060
