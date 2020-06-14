@@ -361,3 +361,4 @@ If everything works, the blockchain explorer would look like:
 # Resources and Thought Experiments
 
 [KC Tam Medium](https://medium.com/@kctheservant)
+[Blockchain Backyard](https://blockchain-backyard.github.io/community-questions/posts/what-is-this/)
