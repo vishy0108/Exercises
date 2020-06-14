@@ -146,7 +146,7 @@ function networkClean() {
     removeUnwantedImages
 
     # remove orderer block and other channel configuration transactions and certs
-    rm -rf channel-artifacts crypto-config add_org/crypto-config
+    rm -rf channel-artifacts crypto-config
     # remove client certs
     rm -rf client-certs
 }
@@ -251,12 +251,12 @@ function generateChannelArtifacts() {
     echo "###########################################################"
     PROFILE=FourOrgsSupplyChainGenesis
     CHANNEL_PROFILE=FourOrgsSupplyChainChannel
-    CHANNEL_NAME=fourorgssupplychainchannel
+    SYS_CHANNEL_NAME=fourorgssupplychainsyschannel
 
     # Note: For some unknown reason (at least for now) the block file can't be
     # named orderer.genesis.block or the orderer will fail to launch!
     set -x
-    configtxgen -profile $PROFILE -outputBlock ./channel-artifacts/genesis.block -channelID $CHANNEL_NAME --configPath $PWD
+    configtxgen -profile $PROFILE -outputBlock ./channel-artifacts/genesis.block -channelID $SYS_CHANNEL_NAME --configPath $PWD
     res=$?
     set +x
     if [ $res -ne 0 ]; then
