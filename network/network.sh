@@ -240,6 +240,10 @@ function generateChannelArtifacts() {
         exit 1
     fi
 
+    if [ -d "channel-artifacts" ]; then
+        rm -Rf channel-artifacts
+    fi
+
     mkdir -p channel-artifacts
 
     echo "###########################################################"
