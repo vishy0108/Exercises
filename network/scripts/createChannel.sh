@@ -37,10 +37,10 @@ joinChannel() {
     setGlobalsForPeerAndOrg producer.abacsupplychain.io ProducerMSP peer0 8051
     docker exec -e CORE_PEER_MSPCONFIGPATH=${CORE_PEER_MSPCONFIGPATH} -e CORE_PEER_ADDRESS=${CORE_PEER_ADDRESS} -e CORE_PEER_LOCALMSPID=${CORE_PEER_LOCALMSPID} -e CORE_PEER_TLS_ROOTCERT_FILE=${CORE_PEER_TLS_ROOTCERT_FILE} cli peer channel join -b $BLOCK_PATH
 
-    setGlobalsForPeerAndOrg shipper.abacsupplychain.io ShipperOrg peer0 9051
+    setGlobalsForPeerAndOrg shipper.abacsupplychain.io ShipperMSP peer0 9051
     docker exec -e CORE_PEER_MSPCONFIGPATH=${CORE_PEER_MSPCONFIGPATH} -e CORE_PEER_ADDRESS=${CORE_PEER_ADDRESS} -e CORE_PEER_LOCALMSPID=${CORE_PEER_LOCALMSPID} -e CORE_PEER_TLS_ROOTCERT_FILE=${CORE_PEER_TLS_ROOTCERT_FILE} cli peer channel join -b $BLOCK_PATH
 
-    setGlobalsForPeerAndOrg regulator.abacsupplychain.io RegulatorOrg peer0 10051
+    setGlobalsForPeerAndOrg regulator.abacsupplychain.io RegulatorMSP peer0 10051
     docker exec -e CORE_PEER_MSPCONFIGPATH=${CORE_PEER_MSPCONFIGPATH} -e CORE_PEER_ADDRESS=${CORE_PEER_ADDRESS} -e CORE_PEER_LOCALMSPID=${CORE_PEER_LOCALMSPID} -e CORE_PEER_TLS_ROOTCERT_FILE=${CORE_PEER_TLS_ROOTCERT_FILE} cli peer channel join -b $BLOCK_PATH
 }
 
