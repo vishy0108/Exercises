@@ -69,7 +69,7 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
       - CORE_PEER_CHAINCODEADDRESS=peer0.shipper.abacsupplychain.io:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:9051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=ShipperMSP
     volumes:
@@ -91,7 +91,7 @@ services:
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
       - CORE_PEER_CHAINCODEADDRESS=peer0.regulator.abacsupplychain.io:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:8051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:9051
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.regulator.abacsupplychain.io:7051
       - CORE_PEER_LOCALMSPID=RegulatorMSP
     volumes:
