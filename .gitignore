@@ -4,3 +4,7 @@ dist/
 
 # Explorer
 network/explorer/walletstore/
+
+# Network crypto material
+network/channel-artifacts/
+network/crypto-config/
