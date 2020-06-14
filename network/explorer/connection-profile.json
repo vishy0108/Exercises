@@ -1,0 +1,59 @@
+{
+  "name": "abacsupplychain-network",
+  "version": "1.0.0",
+  "client": {
+    "tlsEnable": true,
+    "adminUser": "admin",
+    "adminPassword": "adminpw",
+    "enableAuthentication": false,
+    "organization": "RetailerOrg",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "fourorgssupplychainchannel": {
+      "peers": {
+        "peer0.retailer.abacsupplychain.io": {}
+      },
+      "connection": {
+        "timeout": {
+          "peer": {
+            "endorser": "6000",
+            "eventHub": "6000",
+            "eventReg": "6000"
+          }
+        }
+      }
+    }
+  },
+  "organizations": {
+    "RetailerOrg": {
+      "mspid": "RetailerMSP",
+      "adminPrivateKey": {
+        "path": "/etc/hyperledger/fabric/crypto/peerOrganizations/retailer.abacsupplychain.io/users/Admin@retailer.abacsupplychain.io/msp/keystore/priv_sk"
+      },
+      "peers": ["peer0.retailer.abacsupplychain.io"],
+      "signedCert": {
+        "path": "/etc/hyperledger/fabric/crypto/peerOrganizations/retailer.abacsupplychain.io/users/Admin@retailer.abacsupplychain.io/msp/signcerts/Admin@retailer.abacsupplychain.io-cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.retailer.abacsupplychain.io": {
+      "tlsCACerts": {
+        "path": "/etc/hyperledger/fabric/crypto/peerOrganizations/retailer.abacsupplychain.io/peers/peer0.retailer.abacsupplychain.io/tls/ca.crt"
+      },
+      "url": "grpcs://peer0.retailer.abacsupplychain.io:7051",
+      "eventUrl": "grpcs://peer0.retailer.abacsupplychain.io:7053",
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.retailer.abacsupplychain.io"
+      }
+    }
+  }
+}
