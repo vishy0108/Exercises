@@ -2,7 +2,7 @@
   "network-configs": {
     "abacsupplychain-network": {
       "name": "abacsupplychain-network",
-      "profile": "./connection-profile/abacsupplychain-network.json"
+      "profile": "./connection-profile.json"
     }
   }
 }
