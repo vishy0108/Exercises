@@ -43,12 +43,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer0.producer.abacsupplychain.io
-      - CORE_PEER_ADDRESS=peer0.producer.abacsupplychain.io:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.producer.abacsupplychain.io:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:9051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:7051
+      - CORE_PEER_ADDRESS=peer0.producer.abacsupplychain.io:8051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:8051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.producer.abacsupplychain.io:8052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:8052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.producer.abacsupplychain.io:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.producer.abacsupplychain.io:8051
       - CORE_PEER_LOCALMSPID=ProducerMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -56,7 +56,7 @@ services:
       - ../crypto-config/peerOrganizations/producer.abacsupplychain.io/peers/peer0.producer.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.producer.abacsupplychain.io:/var/hyperledger/production
     ports:
-      - 8051:7051
+      - 8051:8051
 
   peer0.shipper.abacsupplychain.io:
     container_name: peer0.shipper.abacsupplychain.io
@@ -65,12 +65,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer0.shipper.abacsupplychain.io
-      - CORE_PEER_ADDRESS=peer0.shipper.abacsupplychain.io:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.shipper.abacsupplychain.io:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:9051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.abacsupplychain.io:7051
+      - CORE_PEER_ADDRESS=peer0.shipper.abacsupplychain.io:9051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.shipper.abacsupplychain.io:9052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.shipper.abacsupplychain.io:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.shipper.abacsupplychain.io:9051
       - CORE_PEER_LOCALMSPID=ShipperMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -78,7 +78,7 @@ services:
       - ../crypto-config/peerOrganizations/shipper.abacsupplychain.io/peers/peer0.shipper.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.shipper.abacsupplychain.io:/var/hyperledger/production
     ports:
-      - 9051:7051
+      - 9051:9051
 
   peer0.regulator.abacsupplychain.io:
     container_name: peer0.regulator.abacsupplychain.io
@@ -87,12 +87,12 @@ services:
       service: peer-base
     environment:
       - CORE_PEER_ID=peer0.regulator.abacsupplychain.io
-      - CORE_PEER_ADDRESS=peer0.regulator.abacsupplychain.io:7051
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.regulator.abacsupplychain.io:7052
-      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:9051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.regulator.abacsupplychain.io:7051
+      - CORE_PEER_ADDRESS=peer0.regulator.abacsupplychain.io:10051
+      - CORE_PEER_LISTENADDRESS=0.0.0.0:10051
+      - CORE_PEER_CHAINCODEADDRESS=peer0.regulator.abacsupplychain.io:10052
+      - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:10052
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.regulator.abacsupplychain.io:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.regulator.abacsupplychain.io:10051
       - CORE_PEER_LOCALMSPID=RegulatorMSP
     volumes:
       - /var/run/:/host/var/run/
@@ -100,4 +100,4 @@ services:
       - ../crypto-config/peerOrganizations/regulator.abacsupplychain.io/peers/peer0.regulator.abacsupplychain.io/tls:/etc/hyperledger/fabric/tls
       - peer0.regulator.abacsupplychain.io:/var/hyperledger/production
     ports:
-      - 10051:7051
+      - 10051:10051
