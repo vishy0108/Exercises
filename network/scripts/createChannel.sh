@@ -1,5 +1,5 @@
 # Import
-. ./envVars.sh
+. scripts/envVars.sh
 
 CHANNEL_PROFILE="FourOrgsSupplyChainChannel"
 CHANNEL_NAME="fourorgssupplychainchannel"
