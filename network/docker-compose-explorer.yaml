@@ -5,7 +5,7 @@ volumes:
   walletstore:
 
 networks:
-  abacsupplychain_explorer:
+  trade:
 
 services:
   explorerdb.abacsupplychain.io:
@@ -24,7 +24,7 @@ services:
     volumes:
       - data:/var/lib/postgresql/data
     networks:
-      - abacsupplychain_explorer
+      - trade
 
   explorer.abacsupplychain.io:
     image: hyperledger/explorer:latest
@@ -52,4 +52,4 @@ services:
       explorerdb.abacsupplychain.io:
         condition: service_healthy
     networks:
-      - abacsupplychain_explorer
+      - trade
